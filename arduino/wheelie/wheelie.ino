@@ -1,5 +1,3 @@
-
-//#include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
@@ -18,25 +16,65 @@ const int MOTOR_BWA = 8;
 const int MOTOR_FWB = 4;
 const int MOTOR_BWB = 3;
 
-const int CIRCLE_SIZE = 0x4000;
-
 const int LENGTH_CM = 69;
 const int WEIGHT_CENTER_CM = 22;
 const int MAX_WHEEL_SPEED_CMPS = 100; /* this is an approximation */
+
+
+//If it leans forward too much, increase, else decrease;
+const float null_angle = -0.0115;
 
 Adafruit_BLE_UART BTLEserial = Adafruit_BLE_UART(BTLE_REQ, BTLE_RDY, BTLE_RST);
 Adafruit_BNO055 bno = Adafruit_BNO055();
 imu::Vector<3> euler;
 imu::Vector<3> gyro;
-imu::Vector<3> grav;
 float fwd_speed;
-float speed_cmps;
 bool disable;
 float target_rotation;
 float current_rotation;
 float target_angle;
 bool controlled;
 float recent_speed;
+
+double P[2][2] = {{1, 0}, {0, 1}};
+double Pdot[4] = {0, 0, 0, 0};
+static const double Q_ANGLE = 0.001;
+static const double Q_GYRO = 0.003;
+static const double R_ANGLE = 0.5;
+static const double DTT = 0.01;
+static const double C_0 = 1.0;
+double q_bias, angle_err, PCt_0, PCt_1, E, K_0, K_1, t_0, t_1;
+double angle, angle_dot, aaxdot, aax;
+double position_dot, position_dot_filter, position;
+
+void kalman() {
+  double angle_m = -euler.z() - 90;
+  double gyro_m = gyro.x() / PI * 180;
+  angle += (gyro_m - q_bias) * DTT;
+  Pdot[0] = Q_ANGLE - P[0][1] - P[1][0];
+  Pdot[1] = -P[1][1];
+  Pdot[2] = -P[1][1];
+  Pdot[3] = Q_GYRO;
+  P[0][0] += Pdot[0] * DTT;
+  P[0][1] += Pdot[1] * DTT;
+  P[1][0] += Pdot[2] * DTT;
+  P[1][1] += Pdot[3] * DTT;
+  angle_err = angle_m - angle;
+  PCt_0 = C_0 * P[0][0];
+  PCt_1 = C_0 * P[1][0];
+  E = R_ANGLE + C_0 + PCt_0;
+  K_0 = PCt_0 / E;
+  K_1 = PCt_1 / E;
+  t_0 = PCt_0;
+  t_1 = C_0 * P[0][1];
+  P[0][0] -= K_0 * t_0;
+  P[0][1] -= K_0 * t_1;
+  P[1][0] -= K_1 * t_0;
+  P[1][1] -= K_1 * t_1;
+  angle += K_0 * angle_err;
+  q_bias += K_1 * angle_err;
+  angle_dot = gyro_m - q_bias;
+}
 
 void initMotors() {
   pinMode(MOTOR_FWA, OUTPUT);
@@ -102,8 +140,6 @@ int fix_speed(float speed) {
 
 void motorA(float speed_f) {
   int speed = fix_speed(speed_f);
-  Serial.print(speed);
-  Serial.print("\t");
   if (speed > 0) {
     analogWrite(MOTOR_ENA, speed);
     digitalWrite(MOTOR_FWA, HIGH);
@@ -119,7 +155,6 @@ void motorA(float speed_f) {
 
 void motorB(float speed_f) {
   int speed = fix_speed(speed_f);
-  Serial.println(speed);
   if (speed > 0) {
     analogWrite(MOTOR_ENB, speed);
     digitalWrite(MOTOR_FWB, HIGH);
@@ -194,16 +229,7 @@ float square(float x) {
 void sensorLoop() {
   euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
   gyro = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
-  grav = bno.getVector(Adafruit_BNO055::VECTOR_GRAVITY);
-  //float wheel_speed_cmps = fwd_speed * MAX_WHEEL_SPEED_CMPS;
-  //float top_speed_cmps = wheel_speed_cmps - gyro.z() * LENGTH_CM * 2;
-  //float cur_speed_cmps = (top_speed_cmps * (LENGTH_CM - WEIGHT_CENTER_CM) + \
-  //        wheel_speed_cmps * WEIGHT_CENTER_CM) / LENGTH_CM;
-  //speed_cmps = 0.8 * speed_cmps + 0.2 * cur_speed_cmps;
-  //speed_cmps = cur_speed_cmps;
-
-  //If it leans forward too much, increase, else decrease;
-  float null_angle = -0.0115;
+  kalman();
 
   float fwd_angle = (-euler.z() - 90) / 90 + null_angle;
 
@@ -211,16 +237,23 @@ void sensorLoop() {
   recent_speed = factor_rs * recent_speed + (1 - factor_rs) * fwd_speed;
 
   disable = fwd_angle > 0.5 || fwd_angle < -0.5;
-  Serial.println(disable);
   current_rotation = euler.x();
 
+  Serial.print(fwd_angle);
+  Serial.print('\t');
+  Serial.print(angle);
+  Serial.print('\t');
+  Serial.print(angle_dot);
+  Serial.print('\n');
+
   //fwd_speed = square(fwd_angle - target_angle) * 128;
-  fwd_speed = fwd_angle * 9; //13;
+  fwd_speed = angle * 0.25; //13;
+  fwd_speed -= angle_dot * 0.005;
   if (controlled) {
     fwd_speed -= target_angle * 8;
   }
   //fwd_speed += gyro.z() * 0.2f;
-  fwd_speed += recent_speed * 0.2f;
+  fwd_speed += recent_speed * 0.4f;
 
   if (fwd_speed > 1) { fwd_speed = 1; }
   if (fwd_speed < -1) { fwd_speed = -1; }
