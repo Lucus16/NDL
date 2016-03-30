@@ -1,5 +1,5 @@
 
-#include <Wire.h>
+//#include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
@@ -24,8 +24,6 @@ const int LENGTH_CM = 69;
 const int WEIGHT_CENTER_CM = 22;
 const int MAX_WHEEL_SPEED_CMPS = 100; /* this is an approximation */
 
-//const float PI = 3.14159265358979323
-
 Adafruit_BLE_UART BTLEserial = Adafruit_BLE_UART(BTLE_REQ, BTLE_RDY, BTLE_RST);
 Adafruit_BNO055 bno = Adafruit_BNO055();
 imu::Vector<3> euler;
@@ -37,6 +35,8 @@ bool disable;
 float target_rotation;
 float current_rotation;
 float target_angle;
+bool controlled;
+float recent_speed;
 
 void initMotors() {
   pinMode(MOTOR_FWA, OUTPUT);
@@ -81,9 +81,11 @@ void motorBSlowStop() {
 
 //bool stopped;
 int fix_speed(float speed) {
-  if (speed < 0.05f && speed > -0.05f) {
-    //speed *= 5;
-    speed = 0;
+  if (speed == 0) { return 0; }
+  const int NULL_ZONE = 0.05f;
+  if (speed < NULL_ZONE && speed > -NULL_ZONE) {
+    speed *= 5;
+    //speed = 0;
   } else {
     speed *= 0.80f;
     if (speed > 0.0f) {
@@ -134,10 +136,12 @@ void motorB(float speed_f) {
 void initBtooth() {
   //BTLEserial.setDeviceName("WHEELIE"); // max 7 chars
   BTLEserial.begin();
+  controlled = false;
 }
 
 void setup()
 {
+  recent_speed = 0;
   initMotors();
   initSensor();
   initBtooth();
@@ -147,10 +151,13 @@ void setup()
 void btLoop() {
   BTLEserial.pollACI();
   if (BTLEserial.available() && BTLEserial.getState() == ACI_EVT_CONNECTED) {
+    controlled = true;
     while (BTLEserial.available()) {
       byte b = BTLEserial.read();
       btHandle(b);
     }
+  } else if (!BTLEserial.getState() == ACI_EVT_CONNECTED) {
+    controlled = false;
   }
 }
 
@@ -188,18 +195,32 @@ void sensorLoop() {
   euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
   gyro = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
   grav = bno.getVector(Adafruit_BNO055::VECTOR_GRAVITY);
-  float wheel_speed_cmps = fwd_speed * MAX_WHEEL_SPEED_CMPS;
-  float top_speed_cmps = wheel_speed_cmps - gyro.z() * LENGTH_CM * 2;
-  float cur_speed_cmps = (top_speed_cmps * (LENGTH_CM - WEIGHT_CENTER_CM) + \
-          wheel_speed_cmps * WEIGHT_CENTER_CM) / LENGTH_CM;
+  //float wheel_speed_cmps = fwd_speed * MAX_WHEEL_SPEED_CMPS;
+  //float top_speed_cmps = wheel_speed_cmps - gyro.z() * LENGTH_CM * 2;
+  //float cur_speed_cmps = (top_speed_cmps * (LENGTH_CM - WEIGHT_CENTER_CM) + \
+  //        wheel_speed_cmps * WEIGHT_CENTER_CM) / LENGTH_CM;
   //speed_cmps = 0.8 * speed_cmps + 0.2 * cur_speed_cmps;
-  speed_cmps = cur_speed_cmps;
-  float fwd_angle = (-euler.z() - 90) / 90 - 0.045;
+  //speed_cmps = cur_speed_cmps;
 
-  disable = fwd_angle < -0.5 || fwd_angle > 0.5;
+  //If it leans forward too much, increase, else decrease;
+  float null_angle = -0.0115;
+
+  float fwd_angle = (-euler.z() - 90) / 90 + null_angle;
+
+  const float factor_rs = 0.95f;
+  recent_speed = factor_rs * recent_speed + (1 - factor_rs) * fwd_speed;
+
+  disable = fwd_angle > 0.5 || fwd_angle < -0.5;
+  Serial.println(disable);
   current_rotation = euler.x();
 
-  fwd_speed = square(fwd_angle - target_angle) * 128;
+  //fwd_speed = square(fwd_angle - target_angle) * 128;
+  fwd_speed = fwd_angle * 9; //13;
+  if (controlled) {
+    fwd_speed -= target_angle * 8;
+  }
+  //fwd_speed += gyro.z() * 0.2f;
+  fwd_speed += recent_speed * 0.2f;
 
   if (fwd_speed > 1) { fwd_speed = 1; }
   if (fwd_speed < -1) { fwd_speed = -1; }
@@ -212,7 +233,7 @@ void motorLoop() {
     return;
   }
   float todo_rotation;
-  if (fwd_speed > 0.75f || fwd_speed < -0.75f) {
+  if (true || abs(fwd_speed) > 0.25f || !controlled) {
     todo_rotation = 0;
   } else {
     todo_rotation = target_rotation - current_rotation + 540;
