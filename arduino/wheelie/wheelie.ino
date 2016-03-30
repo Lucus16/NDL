@@ -1,10 +1,4 @@
-
-//#include <Wire.h>
-#include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
-#include <utility/imumaths.h>
-#include <SoftwareSerial.h>
-#include <SPI.h>
 #include "Adafruit_BLE_UART.h"
 
 const int BTLE_REQ = 10;
@@ -18,12 +12,6 @@ const int MOTOR_BWA = 8;
 const int MOTOR_FWB = 4;
 const int MOTOR_BWB = 3;
 
-const int CIRCLE_SIZE = 0x4000;
-
-const int LENGTH_CM = 69;
-const int WEIGHT_CENTER_CM = 22;
-const int MAX_WHEEL_SPEED_CMPS = 100; /* this is an approximation */
-
 Adafruit_BLE_UART BTLEserial = Adafruit_BLE_UART(BTLE_REQ, BTLE_RDY, BTLE_RST);
 Adafruit_BNO055 bno = Adafruit_BNO055();
 imu::Vector<3> euler;
@@ -34,9 +22,10 @@ float speed_cmps;
 bool disable;
 float target_rotation;
 float current_rotation;
-float target_angle;
+float target_speed;
 bool controlled;
 float recent_speed;
+float speed_compensation;
 
 void initMotors() {
   pinMode(MOTOR_FWA, OUTPUT);
@@ -78,20 +67,19 @@ void motorBSlowStop() {
   digitalWrite(MOTOR_BWB, LOW);
 }
 
-
-//bool stopped;
+const float NULL_ZONE = 0.02f;
+const float MIN_SPEED = 0.25f;
 int fix_speed(float speed) {
   if (speed == 0) { return 0; }
-  const int NULL_ZONE = 0.05f;
   if (speed < NULL_ZONE && speed > -NULL_ZONE) {
-    speed *= 5;
-    //speed = 0;
+    //speed *= MIN_SPEED / NULL_ZONE;
+    speed = 0;
   } else {
-    speed *= 0.80f;
+    speed *= 1.0f - MIN_SPEED + NULL_ZONE;
     if (speed > 0.0f) {
-      speed += 0.20f;
+      speed += MIN_SPEED - NULL_ZONE;
     } else {
-      speed -= 0.20f;
+      speed -= MIN_SPEED - NULL_ZONE;
     }
   }
   int si = speed * 255;
@@ -134,7 +122,7 @@ void motorB(float speed_f) {
 }
 
 void initBtooth() {
-  //BTLEserial.setDeviceName("WHEELIE"); // max 7 chars
+  BTLEserial.setDeviceName("WHEELIE"); // max 7 chars
   BTLEserial.begin();
   controlled = false;
 }
@@ -179,51 +167,72 @@ void btHandle(byte b) {
     target_rotation = ((float)n) / 0x4000 * 360;
   }
   if (buffer[0] == RF_TARGET_ANGLE) {
-    target_angle = ((float)n) / 0x4000 / 4;
+    target_speed = ((float)n) / 0x4000;
   }
 }
 
-float square(float x) {
-  if (x > 0) {
-    return x * x;
-  } else {
-    return -(x * x);
-  }
-}
+// ALTERNATIVE IDEAS
+// work out the math formulas and use integrals to exactly calculate how much power
+// results in standing still straight up.
+
+// Assuming gyro.z() measures the rate at which the robot falls forward
 
 void sensorLoop() {
   euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
   gyro = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
-  grav = bno.getVector(Adafruit_BNO055::VECTOR_GRAVITY);
-  //float wheel_speed_cmps = fwd_speed * MAX_WHEEL_SPEED_CMPS;
-  //float top_speed_cmps = wheel_speed_cmps - gyro.z() * LENGTH_CM * 2;
-  //float cur_speed_cmps = (top_speed_cmps * (LENGTH_CM - WEIGHT_CENTER_CM) + \
-  //        wheel_speed_cmps * WEIGHT_CENTER_CM) / LENGTH_CM;
-  //speed_cmps = 0.8 * speed_cmps + 0.2 * cur_speed_cmps;
-  //speed_cmps = cur_speed_cmps;
+
+  current_rotation = euler.x();
 
   //If it leans forward too much, increase, else decrease;
   float null_angle = -0.0115;
 
   float fwd_angle = (-euler.z() - 90) / 90 + null_angle;
-
-  const float factor_rs = 0.95f;
-  recent_speed = factor_rs * recent_speed + (1 - factor_rs) * fwd_speed;
-
   disable = fwd_angle > 0.5 || fwd_angle < -0.5;
-  Serial.println(disable);
-  current_rotation = euler.x();
+  float fwd_accel = gyro.z();
 
-  //fwd_speed = square(fwd_angle - target_angle) * 128;
-  fwd_speed = fwd_angle * 9; //13;
-  if (controlled) {
-    fwd_speed -= target_angle * 8;
-  }
-  //fwd_speed += gyro.z() * 0.2f;
-  fwd_speed += recent_speed * 0.2f;
+  // Time in seconds to look into the future.
+  const float ANGLE_NEXT_S = 0.2f;
+  
+  // What part of the speed should be based on the next angle.
+  const float ANGLE_NEXT_PART = 0.5f;
+
+  // What part of the speed compensation should be based on the next speed.
+  const float SPEED_NEXT_PART = 0.5f;
+  
+  // How strongly the motors react to angles.
+  const float ANGLE_MULTIPLIER = 9.0f;
+
+  // Maximum compensation amount from speed
+  // Assuming max speed is approx 1m/s
+  const float MAX_SPEED_COMPENSATION = 0.2f;
+
+  // Height of the center of mass in meters.
+  const float COM_HEIGHT = 0.27f;
+
+  float next_angle = fwd_angle + 4 / PI * ANGLE_NEXT_S * fwd_accel;
+
+  fwd_speed = ANGLE_MULTIPLIER * (1 - ANGLE_NEXT_PART) * fwd_angle;
+  fwd_speed += ANGLE_MULTIPLIER * ANGLE_NEXT_PART * next_angle;
+  fwd_speed += speed_compensation;
 
   if (fwd_speed > 1) { fwd_speed = 1; }
   if (fwd_speed < -1) { fwd_speed = -1; }
+
+  float cur_speed = recent_speed + 2 * COM_HEIGHT * gyro.z();
+  float next_speed = fwd_speed;
+
+  speed_compensation = (1 - SPEED_NEXT_PART) * cur_speed + SPEED_NEXT_PART * (next_speed - target_speed);
+
+  if (speed_compensation > MAX_SPEED_COMPENSATION) {
+    speed_compensation = MAX_SPEED_COMPENSATION;
+  }
+
+  if (speed_compensation < -MAX_SPEED_COMPENSATION) {
+    speed_compensation = -MAX_SPEED_COMPENSATION;
+  }
+
+  const float factor_rs = 0.8f; // TODO
+  recent_speed = factor_rs * recent_speed + (1 - factor_rs) * fwd_speed;
 }
 
 void motorLoop() {
@@ -232,15 +241,28 @@ void motorLoop() {
     motorB(0);
     return;
   }
+  const float MAX_ROTATION_SPEED = 0.5f;
+  
   float todo_rotation;
-  if (true || abs(fwd_speed) > 0.25f || !controlled) {
+  if (!controlled) {
     todo_rotation = 0;
   } else {
     todo_rotation = target_rotation - current_rotation + 540;
     while (todo_rotation > 360) { todo_rotation -= 360; }
     todo_rotation = todo_rotation / 180 - 1;
-    if (todo_rotation > 0.2f) { todo_rotation = 0.2f; }
-    if (todo_rotation < -0.2f) { todo_rotation = -0.2f; }
+
+    if (todo_rotation + fwd_speed > MAX_ROTATION_SPEED) {
+      todo_rotation = MAX_ROTATION_SPEED - fwd_speed;
+    }
+    if (todo_rotation + fwd_speed < -MAX_ROTATION_SPEED) {
+      todo_rotation = -MAX_ROTATION_SPEED - fwd_speed;
+    }
+    if (-todo_rotation + fwd_speed > MAX_ROTATION_SPEED) {
+      todo_rotation = MAX_ROTATION_SPEED - fwd_speed;
+    }
+    if (-todo_rotation + fwd_speed < -MAX_ROTATION_SPEED) {
+      todo_rotation = -MAX_ROTATION_SPEED - fwd_speed;
+    }
   }
   motorA(fwd_speed + todo_rotation);
   motorB(fwd_speed - todo_rotation);
