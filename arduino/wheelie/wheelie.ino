@@ -68,7 +68,7 @@ void motorBSlowStop() {
 }
 
 const float NULL_ZONE = 0.02f;
-const float MIN_SPEED = 0.25f;
+const float MIN_SPEED = 0.30f;
 int fix_speed(float speed) {
   if (speed == 0) { return 0; }
   if (speed < NULL_ZONE && speed > -NULL_ZONE) {
@@ -90,8 +90,6 @@ int fix_speed(float speed) {
 
 void motorA(float speed_f) {
   int speed = fix_speed(speed_f);
-  Serial.print(speed);
-  Serial.print("\t");
   if (speed > 0) {
     analogWrite(MOTOR_ENA, speed);
     digitalWrite(MOTOR_FWA, HIGH);
@@ -107,7 +105,6 @@ void motorA(float speed_f) {
 
 void motorB(float speed_f) {
   int speed = fix_speed(speed_f);
-  Serial.println(speed);
   if (speed > 0) {
     analogWrite(MOTOR_ENB, speed);
     digitalWrite(MOTOR_FWB, HIGH);
@@ -146,6 +143,7 @@ void btLoop() {
     }
   } else if (!BTLEserial.getState() == ACI_EVT_CONNECTED) {
     controlled = false;
+    target_speed = 0;
   }
 }
 
@@ -184,7 +182,7 @@ void sensorLoop() {
   current_rotation = euler.x();
 
   //If it leans forward too much, increase, else decrease;
-  float null_angle = -0.0115;
+  float null_angle = 0.015f; //-0.0115;
 
   float fwd_angle = (-euler.z() - 90) / 90 + null_angle;
   disable = fwd_angle > 0.5 || fwd_angle < -0.5;
@@ -194,17 +192,17 @@ void sensorLoop() {
   const float ANGLE_NEXT_S = 0.2f;
   
   // What part of the speed should be based on the next angle.
-  const float ANGLE_NEXT_PART = 0.5f;
+  const float ANGLE_NEXT_PART = 0.0f;
 
   // What part of the speed compensation should be based on the next speed.
-  const float SPEED_NEXT_PART = 0.5f;
+  const float SPEED_NEXT_PART = 1.0f;
   
   // How strongly the motors react to angles.
-  const float ANGLE_MULTIPLIER = 9.0f;
+  const float ANGLE_MULTIPLIER = 7.5f;
 
   // Maximum compensation amount from speed
   // Assuming max speed is approx 1m/s
-  const float MAX_SPEED_COMPENSATION = 0.2f;
+  const float MAX_SPEED_COMPENSATION = 0.0f;
 
   // Height of the center of mass in meters.
   const float COM_HEIGHT = 0.27f;
@@ -218,10 +216,19 @@ void sensorLoop() {
   if (fwd_speed > 1) { fwd_speed = 1; }
   if (fwd_speed < -1) { fwd_speed = -1; }
 
-  float cur_speed = recent_speed + 2 * COM_HEIGHT * gyro.z();
-  float next_speed = fwd_speed;
+  float cur_speed = recent_speed + 2 * COM_HEIGHT * gyro.x();
+  float next_speed = fwd_speed; // TODO: Account for rotational velocity
+
+  Serial.print(fwd_angle);
+  Serial.print('\t');
+  Serial.print(next_angle);
+  Serial.print('\t');
+  Serial.print(fwd_speed);
+  Serial.print('\t');
 
   speed_compensation = (1 - SPEED_NEXT_PART) * cur_speed + SPEED_NEXT_PART * (next_speed - target_speed);
+
+  Serial.print(speed_compensation);
 
   if (speed_compensation > MAX_SPEED_COMPENSATION) {
     speed_compensation = MAX_SPEED_COMPENSATION;
@@ -233,6 +240,8 @@ void sensorLoop() {
 
   const float factor_rs = 0.8f; // TODO
   recent_speed = factor_rs * recent_speed + (1 - factor_rs) * fwd_speed;
+
+  Serial.print('\n');
 }
 
 void motorLoop() {
