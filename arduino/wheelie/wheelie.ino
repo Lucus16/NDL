@@ -1,11 +1,10 @@
-
-//#include <Wire.h>
-#include <Adafruit_Sensor.h>
+// Provided by library: Adafruit BNO055
 #include <Adafruit_BNO055.h>
-#include <utility/imumaths.h>
-#include <SoftwareSerial.h>
-#include <SPI.h>
+// Provided by library: Adafruit nRF8001
 #include "Adafruit_BLE_UART.h"
+// These libraries are available from the Manage Libraries screen in Arduino IDE
+
+// Wire connections
 
 const int BTLE_REQ = 10;
 const int BTLE_RDY = 2;
@@ -18,17 +17,18 @@ const int MOTOR_BWA = 8;
 const int MOTOR_FWB = 4;
 const int MOTOR_BWB = 3;
 
-const int CIRCLE_SIZE = 0x4000;
+// Robot properties
 
 const int LENGTH_CM = 69;
 const int WEIGHT_CENTER_CM = 22;
 const int MAX_WHEEL_SPEED_CMPS = 100; /* this is an approximation */
 
+// Globals
+
 Adafruit_BLE_UART BTLEserial = Adafruit_BLE_UART(BTLE_REQ, BTLE_RDY, BTLE_RST);
 Adafruit_BNO055 bno = Adafruit_BNO055();
 imu::Vector<3> euler;
 imu::Vector<3> gyro;
-imu::Vector<3> grav;
 float fwd_speed;
 float speed_cmps;
 bool disable;
@@ -78,20 +78,23 @@ void motorBSlowStop() {
   digitalWrite(MOTOR_BWB, LOW);
 }
 
-
-//bool stopped;
+// Change a -1.0...1.0 speed to a corresponding motor power.
+// The NULL_ZONE makes sure the robot doesn't overreact for low values.
+// The motors don't react properly below about 25% power, which may cause one to
+// activate while the other doesn't, which can cause imbalance. This is why we
+// make sure the speed always above this or 0.
+const float NULL_ZONE = 0.02f;
+const float MIN_SPEED = 0.30f;
 int fix_speed(float speed) {
   if (speed == 0) { return 0; }
-  const int NULL_ZONE = 0.05f;
   if (speed < NULL_ZONE && speed > -NULL_ZONE) {
-    speed *= 5;
-    //speed = 0;
+    speed = 0;
   } else {
-    speed *= 0.80f;
+    speed *= 1.0f - MIN_SPEED + NULL_ZONE;
     if (speed > 0.0f) {
-      speed += 0.20f;
+      speed += MIN_SPEED - NULL_ZONE;
     } else {
-      speed -= 0.20f;
+      speed -= MIN_SPEED - NULL_ZONE;
     }
   }
   int si = speed * 255;
@@ -100,6 +103,7 @@ int fix_speed(float speed) {
   return si;
 }
 
+// Apply a -1.0...1.0 speed to motor A
 void motorA(float speed_f) {
   int speed = fix_speed(speed_f);
   Serial.print(speed);
@@ -117,6 +121,7 @@ void motorA(float speed_f) {
   }
 }
 
+// Apply a -1.0...1.0 speed to motor B
 void motorB(float speed_f) {
   int speed = fix_speed(speed_f);
   Serial.println(speed);
@@ -148,6 +153,7 @@ void setup()
   Serial.begin(9600);
 }
 
+// Check for bluetooth signals and handle any found.
 void btLoop() {
   BTLEserial.pollACI();
   if (BTLEserial.available() && BTLEserial.getState() == ACI_EVT_CONNECTED) {
@@ -161,11 +167,16 @@ void btLoop() {
   }
 }
 
+// This is where the bluetooth signals are handled. Currently, the robot tries
+// to match the rotation of the phone, and the zero angle it targets is
+// proportional to the pitch of the phone.
+
 const int RF_TARGET_ANGLE = 2;
 const int RF_TARGET_ROTATION = 1;
 
 byte buffer[4];
 byte bufferSize;
+
 void btHandle(byte b) {
   if (bufferSize < 3) {
     buffer[bufferSize++] = b;
@@ -183,6 +194,7 @@ void btHandle(byte b) {
   }
 }
 
+// A helper function to square a number but keep its sign.
 float square(float x) {
   if (x > 0) {
     return x * x;
@@ -191,49 +203,72 @@ float square(float x) {
   }
 }
 
+// This is where the actual balancing calculations are done.
 void sensorLoop() {
+  // Get sensor data.
   euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
   gyro = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
-  grav = bno.getVector(Adafruit_BNO055::VECTOR_GRAVITY);
-  //float wheel_speed_cmps = fwd_speed * MAX_WHEEL_SPEED_CMPS;
-  //float top_speed_cmps = wheel_speed_cmps - gyro.z() * LENGTH_CM * 2;
-  //float cur_speed_cmps = (top_speed_cmps * (LENGTH_CM - WEIGHT_CENTER_CM) + \
-  //        wheel_speed_cmps * WEIGHT_CENTER_CM) / LENGTH_CM;
-  //speed_cmps = 0.8 * speed_cmps + 0.2 * cur_speed_cmps;
-  //speed_cmps = cur_speed_cmps;
 
-  //If it leans forward too much, increase, else decrease;
+  // Adjust for sensor imperfection in angle measurement.
+  // If it leans forward too much, increase, else decrease;
   float null_angle = -0.0115;
 
+  // Calculate the -1.0...1.0 angle where 1.0 is flat on the ground forward and
+  // -1.0 is flat on the ground backward.
   float fwd_angle = (-euler.z() - 90) / 90 + null_angle;
 
+  // Approximate the current speed, this tries to account for delay in
+  // acceleration
   const float factor_rs = 0.95f;
   recent_speed = factor_rs * recent_speed + (1 - factor_rs) * fwd_speed;
 
+  // Disable the robot if it falls over too far, so it doesn't run away
   disable = fwd_angle > 0.5 || fwd_angle < -0.5;
-  Serial.println(disable);
+
+  // Used for rotating left and right
   current_rotation = euler.x();
 
-  //fwd_speed = square(fwd_angle - target_angle) * 128;
-  fwd_speed = fwd_angle * 9; //13;
+  // Set the speed based on the current angle. This seems to work decently,
+  // although what value works depends on how well the batteries are charged.
+  fwd_speed = fwd_angle * 9;
+
+  // We were considering using the square instead, to account for the nonlinear
+  // relation between angle and motor power it takes to normalize it.
+  //fwd_speed = square((fwd_angle - target_angle) * 9);
+
+  // If we have bluetooth control, adjust the speed based on it.
   if (controlled) {
     fwd_speed -= target_angle * 8;
   }
-  //fwd_speed += gyro.z() * 0.2f;
-  fwd_speed += recent_speed * 0.2f;
 
+  // These are attempts to have other variables affect the motor speed, although
+  // they haven't worked out too well so far. gyro.z() is the angular speed in
+  // radians per second. recent_speed is an approximation of the recent speed as
+  // set by this function.
+  //fwd_speed += gyro.z() * 0.2f;
+  //fwd_speed += recent_speed * 0.2f;
+
+  // Make sure these don't go out of bounds for the purposes of calculating
+  // recent_speed.
   if (fwd_speed > 1) { fwd_speed = 1; }
   if (fwd_speed < -1) { fwd_speed = -1; }
 }
 
+// Set the motor power based on speed and rotation. Rotation is disabled if no
+// controlling phone is connected or the following boolean is set.
+const bool DISABLE_ROTATION = true;
+const float MAX_ROTATION_SPEED = 0.25f;
 void motorLoop() {
   if (disable) {
+    // Motors disabled because we've toppled over too far, balance can't be
+    // recovered anyway at this point.
     motorA(0);
     motorB(0);
     return;
   }
   float todo_rotation;
-  if (true || abs(fwd_speed) > 0.25f || !controlled) {
+  if (DISABLE_ROTATION || fwd_speed > MAX_ROTATION_SPEED ||
+      fwd_speed < -MAX_ROTATION_SPEED || !controlled) {
     todo_rotation = 0;
   } else {
     todo_rotation = target_rotation - current_rotation + 540;
@@ -248,7 +283,7 @@ void motorLoop() {
 
 void loop()
 {
-  sensorLoop();
   btLoop();
+  sensorLoop();
   motorLoop();
 }
