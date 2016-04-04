@@ -106,8 +106,6 @@ int fix_speed(float speed) {
 // Apply a -1.0...1.0 speed to motor A
 void motorA(float speed_f) {
   int speed = fix_speed(speed_f);
-  Serial.print(speed);
-  Serial.print("\t");
   if (speed > 0) {
     analogWrite(MOTOR_ENA, speed);
     digitalWrite(MOTOR_FWA, HIGH);
@@ -124,7 +122,6 @@ void motorA(float speed_f) {
 // Apply a -1.0...1.0 speed to motor B
 void motorB(float speed_f) {
   int speed = fix_speed(speed_f);
-  Serial.println(speed);
   if (speed > 0) {
     analogWrite(MOTOR_ENB, speed);
     digitalWrite(MOTOR_FWB, HIGH);
@@ -211,7 +208,7 @@ void sensorLoop() {
 
   // Adjust for sensor imperfection in angle measurement.
   // If it leans forward too much, increase, else decrease;
-  float null_angle = -0.0115;
+  float null_angle = 0.01;
 
   // Calculate the -1.0...1.0 angle where 1.0 is flat on the ground forward and
   // -1.0 is flat on the ground backward.
@@ -219,7 +216,7 @@ void sensorLoop() {
 
   // Approximate the current speed, this tries to account for delay in
   // acceleration
-  const float factor_rs = 0.95f;
+  const float factor_rs = 0.9f;
   recent_speed = factor_rs * recent_speed + (1 - factor_rs) * fwd_speed;
 
   // Disable the robot if it falls over too far, so it doesn't run away
@@ -230,11 +227,18 @@ void sensorLoop() {
 
   // Set the speed based on the current angle. This seems to work decently,
   // although what value works depends on how well the batteries are charged.
-  fwd_speed = fwd_angle * 9;
+  //fwd_speed = fwd_angle * 9;
+
+  fwd_angle += recent_speed * 0.005 + gyro.z() * 0.00;
+
+  Serial.print(fwd_angle);
+  Serial.print('\t');
 
   // We were considering using the square instead, to account for the nonlinear
   // relation between angle and motor power it takes to normalize it.
-  //fwd_speed = square((fwd_angle - target_angle) * 9);
+  fwd_speed = square(fwd_angle) * 150;
+
+  Serial.println(fwd_speed);
 
   // If we have bluetooth control, adjust the speed based on it.
   if (controlled) {
