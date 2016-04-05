@@ -92,10 +92,8 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     private UartService mService = null;
     private BluetoothDevice mDevice = null;
     private BluetoothAdapter mBtAdapter = null;
-    private ListView messageListView;
     private ArrayAdapter<String> listAdapter;
     private Button btnConnectDisconnect;
-    private EditText edtMessage;
     private SensorManager mSensorManager;
     private Sensor mSensor;
     private RotationEventListener mRotationEventListener;
@@ -247,10 +245,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                          	String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
                              Log.d(TAG, "UART_CONNECT_MSG");
                              btnConnectDisconnect.setText("Disconnect");
-                             edtMessage.setEnabled(true);
                              ((TextView) findViewById(R.id.deviceName)).setText(mDevice.getName()+ " - ready");
-                             listAdapter.add("["+currentDateTimeString+"] Connected to: "+ mDevice.getName());
-                        	 	messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
                              mState = UART_PROFILE_CONNECTED;
                      }
             	 });
@@ -263,9 +258,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                     	 	 String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
                              Log.d(TAG, "UART_DISCONNECT_MSG");
                              btnConnectDisconnect.setText("Connect");
-                             edtMessage.setEnabled(false);
                              ((TextView) findViewById(R.id.deviceName)).setText("Not Connected");
-                             listAdapter.add("["+currentDateTimeString+"] Disconnected to: "+ mDevice.getName());
                              mState = UART_PROFILE_DISCONNECTED;
                              mService.close();
                             //setUiState();
@@ -288,9 +281,8 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                          try {
                          	String text = new String(txValue, "UTF-8");
                          	String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
-                        	 	listAdapter.add("["+currentDateTimeString+"] RX: "+text);
-                        	 	messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
-                        	
+                             listAdapter.add("["+currentDateTimeString+"] RX: "+text);
+
                          } catch (Exception e) {
                              Log.e(TAG, e.toString());
                          }
