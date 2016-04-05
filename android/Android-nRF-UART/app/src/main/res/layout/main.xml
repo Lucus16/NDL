@@ -32,38 +32,10 @@
             android:layout_weight="4.11"
             android:orientation="vertical" >
 
-            <EditText
-                android:id="@+id/sendText"
-                android:layout_width="102dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@+id/sendButton"
-                android:ems="10"
-                android:enabled="false"
-                android:fontFamily="1"
-                android:lines="1"
-                android:maxLength="20"
-                android:maxLines="1"
-                android:shadowRadius="1" />
-
-            <ListView
-                android:id="@+id/listMessage"
+            <WebView
+                android:id="@+id/activity_main_webview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/sendButton"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true" >
-            </ListView>
-
-            <Button
-                android:id="@+id/sendButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:enabled="false"
-                android:text="Send" />
+                android:layout_height="match_parent" />
 
         </RelativeLayout>
     </LinearLayout>
