@@ -51,4 +51,5 @@
         <service android:enabled="true" android:name=".UartService" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
