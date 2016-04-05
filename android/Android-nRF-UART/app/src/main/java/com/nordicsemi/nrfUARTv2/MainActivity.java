@@ -104,22 +104,21 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         private static final byte TF_TARGET_ANGLE = 2;
         private static final byte TF_TARGET_ROTATION = 1;
 
-
         @Override
         public void onSensorChanged(SensorEvent event) {
-//            if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
-//                final float xf = event.values[0];
-//                final float yf = event.values[1];
-//                final float zf = event.values[2];
-//                final short targetRotation = (short)((xf * 0x4000) / 360);
-//                short targetAngle = (short)(((yf * 0x4000) / -90) - 0x4000);
-//                ByteBuffer buffer = ByteBuffer.allocate(6);
-//                buffer.put(TF_TARGET_ANGLE);
-//                buffer.putShort(targetAngle);
-//                buffer.put(TF_TARGET_ROTATION);
-//                buffer.putShort(targetRotation);
-//                sendBytes(buffer.array());
-//            }
+            if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
+                final float xf = event.values[0];
+                final float yf = event.values[1];
+                final float zf = event.values[2];
+                final short targetRotation = (short)((zf * 0x4000) / 90);
+                short targetAngle = (short)(((yf * 0x4000) / -90) - 0x4000);
+                ByteBuffer buffer = ByteBuffer.allocate(6);
+                buffer.put(TF_TARGET_ANGLE);
+                buffer.putShort(targetAngle);
+                buffer.put(TF_TARGET_ROTATION);
+                buffer.putShort(targetRotation);
+                sendBytes(buffer.array());
+            }
         }
 
         @Override
@@ -139,7 +138,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //TODO getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.main);
         mBtAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBtAdapter == null) {
