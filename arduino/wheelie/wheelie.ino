@@ -50,7 +50,7 @@ void initSensor() {
     Serial.print("No BNO055 detected.");
     while(1);
   }
-  delay(1000);
+  delay(100);
   bno.setExtCrystalUse(true);
 }
 
@@ -136,7 +136,7 @@ void motorB(float speed_f) {
 }
 
 void initBtooth() {
-  //BTLEserial.setDeviceName("WHEELIE"); // max 7 chars
+  BTLEserial.setDeviceName("WHEELIE"); // max 7 chars
   BTLEserial.begin();
   controlled = false;
 }
