@@ -24,7 +24,8 @@
 \section{Introductie}
 In deze handleiding vind je alles wat nodig is om ook zelf het project "Wheelie" te kunnen uitvoeren. Wheelie bestaat uit twee robots. De eerste is de zelfbalancerende robot Wheelie en de tweede is de auto Auto. Auto wordt gebruikt om de besturing via je telefoon en de camera te testen. De handleiding is in 3 onderdelen te verdelen: de montage van de robot, het installeren van de software en het gebruik van Wheelie. Het tweede voertuig dat we gemaakt hebben, is een auto, genaamd Auto. Deze hebben we gebruikt om de besturing en de camera mee te testen. 
 
-\section{Hardware Wheelie}
+\section{Hardware}
+\subsection{Wheelie}
 Wheelie bestaat uit de volgende onderdelen:
 
 \begin{table}[!h]	
@@ -124,7 +125,7 @@ De onderdelen moeten als volgt aangesloten worden:
 \end{figure}
 
 \newpage
-\section{Hardware Auto}
+\subsection{Auto}
 Auto is gebaseerd op de Bluetooth Controlled Robot Car Kits for Arduino \cite{DIY_auto}. Voor Auto zijn de volgende onderdelen nodig. 
 \begin{table}[!h]	
 	\begin{tabular}{|l|c|}
@@ -222,38 +223,76 @@ Auto is gebaseerd op de Bluetooth Controlled Robot Car Kits for Arduino \cite{DI
 	\end{table}
 
 \section{Software}
+Alle software voor dit project staat als zipbestand op de New devices lab wiki. De code is ook te downloaden van github.
+\url{https://github.com/Lucus16/NDL/tree/master/android/Android-nRF-UART}
+
 \subsection{Arduino}
 Voor dit project is gebruik gemaakt van de Arduino IDE ARDUINO (ARDUINO 1.6.7). De laatste versie van ARDUINO is te downloaden op onderstaande link: \url{https://www.arduino.cc/en/Main/Software}. Deze software is beschrikbaar voor Windows Mac OS X en Linux. Op de website van Arduino staan ook instructies voor het installeren van de IDE en verdere documentatie \cite{ARDUINO_getting started}.
 
 Hieronder vind je een tabel met alle gebruikte libraries voor dit project.
-Eerst komen alle libraries die gebruikt zijn in de code voor de arduino.
+Eerst komen alle libraries die gebruikt zijn in de code voor de arduino's.
 
 \begin{table}[H]
 	\begin{tabularx}{\textwidth}{|l|l|X|}
-	\hline \textbf{Bibliotheek} & \textbf{Versie} & \textbf{Download link}  \\ 
-	\hline Wire & 1.0 & - \\ 
-	\hline SPI & 1.0 & - \\ 
-	\hline SoftwareSerial & 1.0 & - \\ 
-	\hline Adafruit\_Sensor & 1.0.2 &  \url{https://github.com/adafruit/Adafruit_Sensor/archive/master.zip}  \\ 
+	%\hline \textbf{Bibliotheek} & \textbf{Versie} & \textbf{Download link}  \\ 
+	%\hline Wire & 1.0 & - \\ 
+	%\hline SPI & 1.0 & - \\ 
+	%\hline SoftwareSerial & 1.0 & - \\ 
+	%\hline Adafruit\_Sensor & 1.0.2 &  \url{https://github.com/adafruit/Adafruit_Sensor/archive/master.zip}  \\ 
 	\hline Adafruit\_BNO055 & 1.1.2 & \url{https://github.com/adafruit/Adafruit_BNO055/archive/master.zip} \\ 
 	\hline Adafruit\_BLE\_UART & 1.0.0 & \url{https://github.com/adafruit/Adafruit_nRF8001/archive/master.zip }\\ 
 	\hline		
 	\end{tabularx} 
-	\caption{Arduino libraries}
+	\caption{Arduino libraries Wheelie}
 	\label{tbl:Download_link}
 \end{table}
+\begin{table}[H]
+	\begin{tabularx}{\textwidth}{|l|l|X|}
+		%\hline \textbf{Bibliotheek} & \textbf{Versie} & \textbf{Download link}  \\ 
+		%\hline Wire & 1.0 & - \\ 
+		%\hline SPI & 1.0 & - \\ 
+		%\hline SoftwareSerial & 1.0 & - \\ 
+		%\hline Adafruit\_Sensor & 1.0.2 &  \url{https://github.com/adafruit/Adafruit_Sensor/archive/master.zip}  \\ 
+		%\hline Adafruit\_BNO055 & 1.1.2 & \url{https://github.com/adafruit/Adafruit_BNO055/archive/master.zip} \\ 
+		\hline Adafruit\_BLE\_UART & 1.0.0 & \url{https://github.com/adafruit/Adafruit_nRF8001/archive/master.zip }\\ 
+		\hline		
+	\end{tabularx} 
+	\caption{Arduino libraries Auto}
+	\label{tbl:Download_link auto}
+\end{table}
 
-De libraries Wire, SPI, en SoftwareSerial worden standaard bijgeleverd bij de Arduino IDE. De overige libraries moeten handmatig toegevoegd worden. De download links in Tabel \ref{tbl:Download_link} verwijzen naar een .zip bestand met de gewenste library. De libraries kun je aan de Arduino IDE toevoegen door in het menu van de IDE te klikken op $$ \text{Sketch} \rightarrow \text{Include Library }\rightarrow \text{Add .ZIP Library ..}$$ en hier de gewenste .zip bestand te selecteren.
+Deze libraries moeten handmatig toegevoegd worden. De download links in Tabel \ref{tbl:Download_link} verwijzen naar een .zip bestand met de gewenste library. De libraries kun je aan de Arduino IDE toevoegen door in het menu van de IDE te klikken op $$ \text{Sketch} \rightarrow \text{Include Library }\rightarrow \text{Add .ZIP Library ..}$$ en hier de gewenste .zip bestand te selecteren.
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.7\linewidth]{Add_ZIP}
-\caption{voeg een library toe aan de Arduino IDE}
 \label{fig:Add_ZIP}
 \end{figure}
 
-Unzip de source code. 
-open de code
-Check de aansuitingen van de arduino.
+\newpage
+Om de code op de arduino te zetten moet je de volgende stappen doen:
+\begin{enumerate}
+	\item Verbind de Arduino met de computer via de bijgeleverde USB-kabel.
+	\item Open de code die je op de Arduino wilt zetten.
+		\begin{enumerate}
+			\item Wheelie.ino voor Wheelie.
+			\item Auto.ino voor Auto.
+		\end{enumerate}
+	\item Kies de juiste Arduino versie.  
+	\begin{enumerate}
+		\item $ \text{Tools} \rightarrow \text{Board} \rightarrow \text{Arduino/Genuino Uno} $ voor Wheelie.
+		\item $  \text{Tools} \rightarrow \text{Board} \rightarrow \text{Arduino/Genuino Leonardo} $ voor Auto.
+	\end{enumerate}	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\linewidth]{board_selecteren}
+		\label{fig:board_selecteren}
+	\end{figure}
+	\item Upload de code naar de Arduino.		
+\end{enumerate}
+
+\subsection{Android}
+Voor deze app hebben we de code van de open-source nrF-UART implementatie \cite{nrf_ua} gebruikt als basis voor onze eigen app. 
+De app draait op android 4.3 en hoger en is te installeren met iedere android IDE. 
 
 \newpage
 \begin{thebibliography}{9}
@@ -303,6 +342,11 @@ Short, J. (z.j). How to Build a Self-Balancing Autonomous Arduino Bot. Geraadple
 
 \bibitem{ARDUINO_getting started}
 ARDUINO. (z.j). Getting Started with Arduino. Geraadpleegd van \url{https://www.arduino.cc/en/Guide/HomePage}
+
+\bibitem{nrf_ua}
+NordicSemiconductor. (2015, 6 oktober) Android-nRF-UART. Geraadpleegd van 
+\url{https://github.com/NordicSemiconductor/Android-nRF-UART}
+
 \end{thebibliography}
 
 \end{document}

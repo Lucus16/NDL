@@ -1,5 +1,7 @@
 \BOOKMARK [1][-]{section.1}{Introductie}{}% 1
-\BOOKMARK [1][-]{section.2}{Hardware Wheelie}{}% 2
-\BOOKMARK [1][-]{section.3}{Hardware Auto}{}% 3
-\BOOKMARK [1][-]{section.4}{Software}{}% 4
-\BOOKMARK [2][-]{subsection.4.1}{Arduino}{section.4}% 5
+\BOOKMARK [1][-]{section.2}{Hardware}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Wheelie}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Auto}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{Software}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Arduino}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{Android}{section.3}% 7
