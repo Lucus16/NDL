@@ -101,6 +101,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     class RotationEventListener implements SensorEventListener {
         private static final byte TF_TARGET_ANGLE = 2;
         private static final byte TF_TARGET_ROTATION = 1;
+        private static final byte TF_RELATIVE_ROTATION = 3;
 
         @Override
         public void onSensorChanged(SensorEvent event) {
@@ -109,12 +110,15 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                 final float yf = event.values[1];
                 final float zf = event.values[2];
                 final short targetRotation = (short)((xf * 0x4000) / 360);
+                final short relativeRotation = (short)((zf * 0x4000) / 90);
                 short targetAngle = (short)(((yf * 0x4000) / -90) - 0x4000);
-                ByteBuffer buffer = ByteBuffer.allocate(6);
+                ByteBuffer buffer = ByteBuffer.allocate(9);
                 buffer.put(TF_TARGET_ANGLE);
                 buffer.putShort(targetAngle);
                 buffer.put(TF_TARGET_ROTATION);
                 buffer.putShort(targetRotation);
+                buffer.put(TF_RELATIVE_ROTATION);
+                buffer.putShort(relativeRotation);
                 sendBytes(buffer.array());
             }
         }

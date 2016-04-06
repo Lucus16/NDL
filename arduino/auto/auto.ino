@@ -19,7 +19,7 @@ const int MOTOR_BWB = 4;
 
 Adafruit_BLE_UART BTLEserial = Adafruit_BLE_UART(BTLE_REQ, BTLE_RDY, BTLE_RST);
 float fwd_speed;
-float target_rotation;
+float relative_rotation;
 
 void initMotors() {
   pinMode(MOTOR_FWA, OUTPUT);
@@ -131,7 +131,7 @@ void btLoop() {
     }
   } else if (BTLEserial.getState() != ACI_EVT_CONNECTED) {
     fwd_speed = 0;
-    target_rotation = 0;
+    relative_rotation = 0;
   }
 }
 
@@ -139,8 +139,9 @@ void btLoop() {
 // to match the rotation of the phone, and the zero angle it targets is
 // proportional to the pitch of the phone.
 
-const int RF_TARGET_ANGLE = 2;
 const int RF_TARGET_ROTATION = 1;
+const int RF_TARGET_ANGLE = 2;
+const int RF_RELATIVE_ROTATION = 3;
 
 byte buffer[4];
 byte bufferSize;
@@ -154,8 +155,8 @@ void btHandle(byte b) {
   }
   bufferSize = 0;
   int n = (int)(((short)buffer[1]) << 8 | ((short)buffer[2]));
-  if (buffer[0] == RF_TARGET_ROTATION) {
-    target_rotation = ((float)n) / 0x4000 * 2;
+  if (buffer[0] == RF_RELATIVE_ROTATION) {
+    relative_rotation = ((float)n) / 0x4000 * 2;
   }
   if (buffer[0] == RF_TARGET_ANGLE) {
     fwd_speed = (((float)n) / 0x4000 + 0.5f) * 2;
@@ -168,14 +169,14 @@ void motorLoop() {
   if (fwd_speed < 0.1f && fwd_speed > -0.1f) {
     fwd_speed = 0.0f;
   }
-  if (target_rotation < 0.1f && target_rotation > -0.1f) {
-    target_rotation = 0.0f;
+  if (relative_rotation < 0.1f && relative_rotation > -0.1f) {
+    relative_rotation = 0.0f;
   }
   Serial.print(fwd_speed);
   Serial.print('\t');
-  Serial.println(target_rotation);
-  motorA(fwd_speed + target_rotation);
-  motorB(fwd_speed - target_rotation);
+  Serial.println(relative_rotation);
+  motorA(fwd_speed + relative_rotation);
+  motorB(fwd_speed - relative_rotation);
 }
 
 void loop()
