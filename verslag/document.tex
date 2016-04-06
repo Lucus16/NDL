@@ -22,10 +22,11 @@
 \newpage
 
 \section{Introductie}
-In deze handleiding vind je alles wat nodig is om ook zelf het project "Wheelie" te kunnen uitvoeren. Wheelie bestaat uit twee robots. De eerste is de zelfbalancerende robot Wheelie en de tweede is de auto Auto. Auto wordt gebruikt om de besturing via je telefoon en de camera te testen. De handleiding is in 3 onderdelen te verdelen: de montage van de robot, het installeren van de software en het gebruik van Wheelie. Het tweede voertuig dat we gemaakt hebben, is een auto, genaamd Auto. Deze hebben we gebruikt om de besturing en de camera mee te testen. 
+In deze handleiding vind je alles wat nodig is om ook zelf het project "Wheelie" te kunnen uitvoeren. Wheelie bestaat uit twee robots. De eerste is de zelfbalancerende robot Wheelie en de tweede is de auto Auto. Auto wordt gebruikt om de besturing via je telefoon en de camera te testen. De handleiding is in 3 onderdelen te verdelen: de montage van de robot, het installeren van de software en het gebruik van Wheelie.
 
 \section{Hardware}
 \subsection{Wheelie}
+\subsubsection{Onderdelen}
 Wheelie bestaat uit de volgende onderdelen:
 
 \begin{table}[!h]	
@@ -50,11 +51,13 @@ Wheelie bestaat uit de volgende onderdelen:
 		\hline  moeren M3 & - \\
 		\hline	
 	\end{tabular} 
-\caption{Onderdelen Wheelie}
-\label{tbl:Onderdelen_wheelie}
+	\caption{Onderdelen Wheelie}
+	\label{tbl:Onderdelen_wheelie}
 \end{table}
 
-De montage van Wheelie is redelijk voor de hand liggend. De onderdelen kunnen op elke gewenste plek op de plank geplaatst worden door zelf schroefgaten te boren. De bluetooth module zit momenteel op de Auto gemonteerd. Maar deze kan op pricies dezelfde wijze op Wheelie gezet worden. 
+\subsubsection{Montage}
+De montage van Wheelie is redelijk voor de hand liggend. De onderdelen kunnen op elke gewenste plek op de plank geplaatst worden door zelf schroefgaten te boren. De bluetooth module staat niet op de foto, maar wordt normaal ook op Wheelie gemonteerd en aangesloten.
+
 \begin{enumerate}
 	\item Monteer de motoren aan het autochasis. Hiervoor zitten al gaten in het chasis.
 	\begin{figure}[H]
@@ -65,15 +68,15 @@ De montage van Wheelie is redelijk voor de hand liggend. De onderdelen kunnen op
 	\item Monteer de plank in de lengte aan het autochasis.
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.7\linewidth]{vastzetten_motor}
+		\includegraphics[width=0.7\linewidth]{vastzetten_plank}
 		\label{fig:vastzetten_plank}
 	\end{figure}
 	\item Monteer de motor controller op de plank. 
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=0.7\linewidth]{vastzetten_motorcontroller}
-			\label{fig:vastzetten_mc}
-		\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{vastzetten_motorcontroller}
+		\label{fig:vastzetten_mc}
+	\end{figure}
 	\item Monteer de Arduino, batterijhouder en de absolute orientation sensor.
 	\begin{figure}[H]
 		\centering
@@ -87,7 +90,9 @@ De montage van Wheelie is redelijk voor de hand liggend. De onderdelen kunnen op
 	\end{figure}	
 \end{enumerate}
 
+\subsubsection{Aansluitingen}
 De onderdelen moeten als volgt aangesloten worden:
+
 \begin{figure} [H]
 	\begin{tabularx}{\textwidth}{|X|X|}	
 		\hline \multicolumn{2}{|c|}{\textbf{Wheelie}}	\\	
@@ -126,7 +131,9 @@ De onderdelen moeten als volgt aangesloten worden:
 
 \newpage
 \subsection{Auto}
+\subsubsection{Onderdelen}
 Auto is gebaseerd op de Bluetooth Controlled Robot Car Kits for Arduino \cite{DIY_auto}. Voor Auto zijn de volgende onderdelen nodig. 
+
 \begin{table}[!h]	
 	\begin{tabular}{|l|c|}
 		\hline \multicolumn{2}{|c|}{\textbf{Auto}}	\\	
@@ -142,106 +149,109 @@ Auto is gebaseerd op de Bluetooth Controlled Robot Car Kits for Arduino \cite{DI
 		\hline  wiel	 & 4 \\
 		\hline 	100 x 213 x 5mm acrylic glass plate (bxlxh) & 2 \\
 		\hline  motor fixing & 4 \\
-		\hline	koper pilaar 6 mm (l) & 6 \\
-		\hline 	koper pilaar 1 mm (l) & 2 \\
+		\hline	koper pilaar 40 mm (l) & 6 \\
+		\hline 	koper pilaar 10 mm (l) & 2 \\
 		\hline 	schroeven 3x20 mm (dxl) & - \\
 		\hline	schroeven 3x12 mm (dxl) & - \\
 		\hline  moeren M3 & - \\	
 		\hline
-		\end{tabular} 
-		\caption{Onderdelen Auto}
-		\label{tbl:Onderdelen_auto}
-	\end{table}
+	\end{tabular} 
+	\caption{Onderdelen Auto}
+	\label{tbl:Onderdelen_auto}
+\end{table}
 	
-	Voor de montage van Auto kun je voor het grootste gedeelte gelijk aan die van de robot-car. 
-	\begin{enumerate}
-		\item Monteer alle onderdelen hierboven \ref{tbl:Onderdelen_auto} zoals in de handleiding is aangegeven \cite{DIY_auto_hl}. 
-		\item Monteer de nRF8001 (Bluetooth LE).
-		\begin{figure}[H]
+\subsubsection{Montage}
+Voor de montage van Auto kun je voor het grootste gedeelte gelijk aan die van de robot-car.
+
+\begin{enumerate}
+	\item Monteer alle onderdelen hierboven \ref{tbl:Onderdelen_auto} zoals in de handleiding is aangegeven \cite{DIY_auto_hl}. 
+	\item Monteer de nRF8001 (Bluetooth LE).
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{vastzetten_auto}
+	\label{fig:vastzetten_auto}
+	\end{figure}
+	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.7\linewidth]{vastzetten_auto}
-		\label{fig:vastzetten_auto}
-		\end{figure}
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=0.7\linewidth]{zijkant}
-			\label{fig:vastzetten_zijkant_auto}
-		\end{figure}
-		\item Monteer de Ai ball.
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=0.7\linewidth]{ai_ball}
-			\label{fig:vastzetten_aiball}
-		\end{figure}	
-	\end{enumerate}
+		\includegraphics[width=0.7\linewidth]{zijkant}
+		\label{fig:vastzetten_zijkant_auto}
+	\end{figure}
+	\item Monteer de Ai ball.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{ai_ball}
+		\label{fig:vastzetten_aiball}
+	\end{figure}	
+\end{enumerate}
 	
 \newpage
-	De onderdelen worden als volgt aangesloten.			
-	\begin{table}[H]
-		\begin{tabularx}{\textwidth}{|X|X|}	
-			\hline \multicolumn{2}{|c|}{\textbf{nRF8001 (Bluetooth LE)}}	\\	 
-			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op Arduino} \\
-			\hline VIN & 5v \\
-			\hline GND & GND \\
-			\hline SCK &  ICSP 3 (ICSP links-midden)\\
-			\hline MISO & ICSP 1 (ICSP links-boven)\\
-			\hline MOSI & ICSP 4 (ICSP rechts-midden)\\
-			\hline REQ & 10 \\
-			\hline RST & 9 \\
-			\hline RDY & 2 \\
-			\hline \multicolumn{2}{|c|}{\textbf{L298 (Dual H-bridge Motor Controller)}}	\\	 
-			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op Arduino} \\
-			\hline GND & GND \\
-			\hline ENA & 5  \\
-			\hline ENB & 6 \\
-			\hline IN1 & 3 \\
-			\hline IN2 & 4 \\
-			\hline IN3 & 7 \\
-			\hline IN4 & 8 \\
-			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor LV} \\
-			\hline OUT1 & rode draad \\
-			\hline OUT2 & zwarte draad \\
-			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor LA} \\
-			\hline OUT1 & rode draad \\
-			\hline OUT2 & zwarte draad \\
-			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor RV} \\
-			\hline OUT3 & zwarte draad \\
-			\hline OUT4 & rode draad \\
-			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor RA} \\
-			\hline OUT3 & zwarte draad \\
-			\hline OUT4 & rode draad \\
-			\hline \multicolumn{2}{|c|}{\textbf{Batterijhouder}}\\	 
-			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op Arduino} \\
-			\hline grote ronde stekker & DC input \\
-			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor controller} \\
-			\hline zwarte draad & GND \\
-			\hline rode draad & 12V \\		
-			\hline		
-		\end{tabularx} 
-		\caption{Aansluitingen Auto}
-		\label{tbl:Aansluitingen_auto}
-	\end{table}
+\subsubsection{Aansluitingen}
+De onderdelen worden als volgt aangesloten.			
+\begin{table}[H]
+	\begin{tabularx}{\textwidth}{|X|X|}	
+		\hline \multicolumn{2}{|c|}{\textbf{nRF8001 (Bluetooth LE)}}	\\	 
+		\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op Arduino} \\
+		\hline VIN & 5v \\
+		\hline GND & GND \\
+		\hline SCK &  ICSP 3 (ICSP links-midden)\\
+		\hline MISO & ICSP 1 (ICSP links-boven)\\
+		\hline MOSI & ICSP 4 (ICSP rechts-midden)\\
+		\hline REQ & 10 \\
+		\hline RST & 9 \\
+		\hline RDY & 2 \\
+		\hline \multicolumn{2}{|c|}{\textbf{L298 (Dual H-bridge Motor Controller)}}	\\	 
+		\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op Arduino} \\
+		\hline GND & GND \\
+		\hline ENA & 5  \\
+		\hline ENB & 6 \\
+		\hline IN1 & 3 \\
+		\hline IN2 & 4 \\
+		\hline IN3 & 7 \\
+		\hline IN4 & 8 \\
+		\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor LV} \\
+		\hline OUT1 & rode draad \\
+		\hline OUT2 & zwarte draad \\
+		\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor LA} \\
+		\hline OUT1 & rode draad \\
+		\hline OUT2 & zwarte draad \\
+		\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor RV} \\
+		\hline OUT3 & zwarte draad \\
+		\hline OUT4 & rode draad \\
+		\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor RA} \\
+		\hline OUT3 & zwarte draad \\
+		\hline OUT4 & rode draad \\
+		\hline \multicolumn{2}{|c|}{\textbf{Batterijhouder}}\\	 
+		\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op Arduino} \\
+		\hline grote ronde stekker & DC input \\
+		\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor controller} \\
+		\hline zwarte draad & GND \\
+		\hline rode draad & 12V \\		
+		\hline		
+	\end{tabularx} 
+	\caption{Aansluitingen Auto}
+	\label{tbl:Aansluitingen_auto}
+\end{table}
 
 \section{Software}
 Alle software voor dit project staat als zipbestand op de New devices lab wiki. De code is ook te downloaden van github.
-\url{https://github.com/Lucus16/NDL/tree/master/android/Android-nRF-UART}
+\url{https://github.com/Lucus16/NDL/}
 
 \subsection{Arduino}
-Voor dit project is gebruik gemaakt van de Arduino IDE ARDUINO (ARDUINO 1.6.7). De laatste versie van ARDUINO is te downloaden op onderstaande link: \url{https://www.arduino.cc/en/Main/Software}. Deze software is beschrikbaar voor Windows Mac OS X en Linux. Op de website van Arduino staan ook instructies voor het installeren van de IDE en verdere documentatie \cite{ARDUINO_getting started}.
+Voor dit project is gebruik gemaakt van de Arduino IDE ARDUINO (ARDUINO 1.6.7). De laatste versie van ARDUINO is te downloaden op onderstaande link: \url{https://www.arduino.cc/en/Main/Software}. Deze software is beschrikbaar voor Windows, Mac OS X en Linux. Op de website van Arduino staan ook instructies voor het installeren van de IDE en verdere documentatie \cite{ARDUINO_getting started}.
 
 Hieronder vind je een tabel met alle gebruikte libraries voor dit project.
 Eerst komen alle libraries die gebruikt zijn in de code voor de arduino's.
 
 \begin{table}[H]
 	\begin{tabularx}{\textwidth}{|l|l|X|}
-	%\hline \textbf{Bibliotheek} & \textbf{Versie} & \textbf{Download link}  \\ 
-	%\hline Wire & 1.0 & - \\ 
-	%\hline SPI & 1.0 & - \\ 
-	%\hline SoftwareSerial & 1.0 & - \\ 
-	%\hline Adafruit\_Sensor & 1.0.2 &  \url{https://github.com/adafruit/Adafruit_Sensor/archive/master.zip}  \\ 
-	\hline Adafruit\_BNO055 & 1.1.2 & \url{https://github.com/adafruit/Adafruit_BNO055/archive/master.zip} \\ 
-	\hline Adafruit\_BLE\_UART & 1.0.0 & \url{https://github.com/adafruit/Adafruit_nRF8001/archive/master.zip }\\ 
-	\hline		
+		%\hline \textbf{Bibliotheek} & \textbf{Versie} & \textbf{Download link}  \\ 
+		%\hline Wire & 1.0 & - \\ 
+		%\hline SPI & 1.0 & - \\ 
+		%\hline SoftwareSerial & 1.0 & - \\ 
+		%\hline Adafruit\_Sensor & 1.0.2 &  \url{https://github.com/adafruit/Adafruit_Sensor/archive/master.zip}  \\ 
+		\hline Adafruit\_BNO055 & 1.1.2 & \url{https://github.com/adafruit/Adafruit_BNO055/archive/master.zip} \\ 
+		\hline Adafruit\_BLE\_UART & 1.0.0 & \url{https://github.com/adafruit/Adafruit_nRF8001/archive/master.zip }\\ 
+		\hline		
 	\end{tabularx} 
 	\caption{Arduino libraries Wheelie}
 	\label{tbl:Download_link}
@@ -280,7 +290,7 @@ Om de code op de arduino te zetten moet je de volgende stappen doen:
 	\item Kies de juiste Arduino versie.  
 	\begin{enumerate}
 		\item $ \text{Tools} \rightarrow \text{Board} \rightarrow \text{Arduino/Genuino Uno} $ voor Wheelie.
-		\item $  \text{Tools} \rightarrow \text{Board} \rightarrow \text{Arduino/Genuino Leonardo} $ voor Auto.
+		\item $ \text{Tools} \rightarrow \text{Board} \rightarrow \text{Arduino/Genuino Leonardo} $ voor Auto.
 	\end{enumerate}	
 	\begin{figure}[h]
 		\centering
@@ -293,6 +303,8 @@ Om de code op de arduino te zetten moet je de volgende stappen doen:
 \subsection{Android}
 Voor deze app hebben we de code van de open-source nrF-UART implementatie \cite{nrf_ua} gebruikt als basis voor onze eigen app. 
 De app draait op android 4.3 en hoger en is te installeren met iedere android IDE. 
+
+\section{Gebruik}
 
 \newpage
 \begin{thebibliography}{9}
