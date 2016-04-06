@@ -304,6 +304,51 @@ Om de code op de arduino te zetten moet je de volgende stappen doen:
 Voor deze app hebben we de code van de open-source nrF-UART implementatie \cite{nrf_ua} gebruikt als basis voor onze eigen app. 
 De app draait op android 4.3 en hoger en is te installeren met iedere android IDE. 
 
+\subsection{Balanceren}
+Het eerste dat we gedaan hebben om te kunnen balanceren is de hoek berekenen van
+Wheelie ten op zichte van het punt waar hij stabiel staat. Dit hebben we
+vervolgens lineair gekoppeld aan de snelheid van de wielen, voor zover dat ging.
+Het kostte een beetje tweaken van de parameters, maar op gegeven moment kon
+Wheelie redelijk goed zijn hoek behouden. Het probleem is dat hij snelheid maakt
+om die hoek te behouden en op gegeven moment kan hij die snelheid niet meer
+bijhouden en valt hij om.
+
+Het eerste dat we geprobeert hebben om dit op te lossen, is overcompenseren.
+Bijvoorbeeld door de hoek sterker mee te laten tellen. Het idee hier achter is
+dat als de robot snelheid maakt naar een kant, dat hij zo sterk overcompenseert
+dat hij de andere kant op gaat leunen en dus kan afremmen. Het effect hiervan is
+echter dat Wheelie meer heen en weer gaat wiebelen, maar nog steeds snelheid
+maakt. Een andere methode is om de snelheid mee te laten tellen, maar dit heeft
+ook hetzelfde effect.
+
+We hebben ook de hoeksnelheid mee laten tellen, omdat de combinatie van
+wielsnelheid en hoeksnelheid de beste benadering geeft van de snelheid van de
+robot als geheel (oftewel, de snelheid van het zwaartepunt). Ook dit heeft
+echter niet geholpen.
+
+We hebben gekeken naar andere zelfbalancerende robots op het internet, maar deze
+werken vaak toch met een lineaire combinatie van de sensoren. Deze hebben vaak
+ook veel betere controle over hun wielen, waardoor ze minder scheef gaan staan
+en dus een lineaire combinatie een betere benadering is. Er werd bijvoorbeeld
+gebruik gemaakt van PID (Proportional Integral Derivative), maar dat is in
+essentie ook gewoon een lineaire combinatie van verschillende metingen.
+
+Sommige soortgelijke projecten gebruikten echter andere dingen. Een voorbeeld
+daarvan is het Kalman filter. Dit is een filter om ruis en onnauwkeurigheden uit
+metingen te halen. Het is echter wiskundig vrij ingewikkeld. We hebben de code
+van iemand anders gekopieerd, maar dit leek niet zomaar te werken, en het
+tweaken van de parameters was ook lastig aangezien er geen goede documentatie
+bij zat. Bovendien hebben wij een sensor die zelf al redelijk wat van dit soort
+voorverwerking doet.
+
+Een deel van het probleem rust waarschijnlijk in het feit dat we geen goed idee
+hebben van hoe snel de robot precies gaat en hoe ver hij precies gereden is. Het
+gebruik van stepper motoren zou hier enorm bij helpen. Een ander deel van het
+probleem is dat we niet precies weten bij welke hoek we in balans zijn, dit wil
+nog wel eens veranderen, ook tijdens het rijden. Om dit op te lossen zouden we
+op de een of andere manier dynamisch moeten meten wat de hoek is op basis van
+wat voor effect het heeft op het vallen.
+
 \section{Gebruik}
 In dit hoofdstuk staat beschreven hoe je Wheelie en Auto daadwerkelijk kunt gebruiken. Als eerste komt Wheelie aan bod, gevolgd door Auto.
 
