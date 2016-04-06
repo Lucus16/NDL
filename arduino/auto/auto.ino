@@ -15,12 +15,6 @@ const int MOTOR_BWA = 8;
 const int MOTOR_FWB = 3;
 const int MOTOR_BWB = 4;
 
-// Robot properties
-
-const int LENGTH_CM = 69;
-const int WEIGHT_CENTER_CM = 22;
-const int MAX_WHEEL_SPEED_CMPS = 100; /* this is an approximation */
-
 // Globals
 
 Adafruit_BLE_UART BTLEserial = Adafruit_BLE_UART(BTLE_REQ, BTLE_RDY, BTLE_RST);
@@ -63,7 +57,7 @@ void motorBSlowStop() {
 // The motors don't react properly below about 25% power, which may cause one to
 // activate while the other doesn't, which can cause imbalance. This is why we
 // make sure the speed always above this or 0.
-const float NULL_ZONE = 0.05f;
+const float NULL_ZONE = 0.00f;
 const float MIN_SPEED = 0.35f;
 int fix_speed(float speed) {
   if (speed == 0) { return 0; }
@@ -86,8 +80,6 @@ int fix_speed(float speed) {
 // Apply a -1.0...1.0 speed to motor A
 void motorA(float speed_f) {
   int speed = fix_speed(speed_f);
-  Serial.print(speed);
-  Serial.print('\t');
   if (speed > 0) {
     analogWrite(MOTOR_ENA, speed);
     digitalWrite(MOTOR_FWA, HIGH);
@@ -104,7 +96,6 @@ void motorA(float speed_f) {
 // Apply a -1.0...1.0 speed to motor B
 void motorB(float speed_f) {
   int speed = fix_speed(speed_f);
-  Serial.println(speed);
   if (speed > 0) {
     analogWrite(MOTOR_ENB, speed);
     digitalWrite(MOTOR_FWB, HIGH);
@@ -119,7 +110,7 @@ void motorB(float speed_f) {
 }
 
 void initBtooth() {
-  //BTLEserial.setDeviceName("WHEELIE"); // max 7 chars
+  BTLEserial.setDeviceName("AUTO"); // max 7 chars
   BTLEserial.begin();
 }
 
@@ -164,7 +155,7 @@ void btHandle(byte b) {
   bufferSize = 0;
   int n = (int)(((short)buffer[1]) << 8 | ((short)buffer[2]));
   if (buffer[0] == RF_TARGET_ROTATION) {
-    target_rotation = ((float)n) / 0x4000;
+    target_rotation = ((float)n) / 0x4000 * 2;
   }
   if (buffer[0] == RF_TARGET_ANGLE) {
     fwd_speed = (((float)n) / 0x4000 + 0.5f) * 2;
@@ -173,9 +164,16 @@ void btHandle(byte b) {
 
 // Set the motor power based on speed and rotation. Rotation is disabled if no
 // controlling phone is connected or the following boolean is set.
-const bool DISABLE_ROTATION = true;
-const float MAX_ROTATION_SPEED = 0.25f;
 void motorLoop() {
+  if (fwd_speed < 0.1f && fwd_speed > -0.1f) {
+    fwd_speed = 0.0f;
+  }
+  if (target_rotation < 0.1f && target_rotation > -0.1f) {
+    target_rotation = 0.0f;
+  }
+  Serial.print(fwd_speed);
+  Serial.print('\t');
+  Serial.println(target_rotation);
   motorA(fwd_speed + target_rotation);
   motorB(fwd_speed - target_rotation);
 }

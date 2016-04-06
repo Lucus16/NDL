@@ -313,13 +313,13 @@ public class UartService extends Service {
     	BluetoothGattService RxService = mBluetoothGatt.getService(RX_SERVICE_UUID);
     	if (RxService == null) {
             showMessage("Rx service not found!");
-            broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
+            //broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
             return;
         }
     	BluetoothGattCharacteristic TxChar = RxService.getCharacteristic(TX_CHAR_UUID);
         if (TxChar == null) {
             showMessage("Tx charateristic not found!");
-            broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
+            //broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
             return;
         }
         mBluetoothGatt.setCharacteristicNotification(TxChar,true);
@@ -338,13 +338,13 @@ public class UartService extends Service {
     	showMessage("mBluetoothGatt null"+ mBluetoothGatt);
     	if (RxService == null) {
             showMessage("Rx service not found!");
-            broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
+            //broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
             return;
         }
     	BluetoothGattCharacteristic RxChar = RxService.getCharacteristic(RX_CHAR_UUID);
         if (RxChar == null) {
             showMessage("Rx charateristic not found!");
-            broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
+            //broadcastUpdate(DEVICE_DOES_NOT_SUPPORT_UART);
             return;
         }
         RxChar.setValue(value);
