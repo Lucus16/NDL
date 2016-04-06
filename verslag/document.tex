@@ -305,6 +305,78 @@ Voor deze app hebben we de code van de open-source nrF-UART implementatie \cite{
 De app draait op android 4.3 en hoger en is te installeren met iedere android IDE. 
 
 \section{Gebruik}
+In dit hoofdstuk staat beschreven hoe je Wheelie en Auto daadwerkelijk kunt gebruiken. Als eerste komt Wheelie aan bod, gevolgd door Auto.
+
+\subsection{Wheelie}
+Wheelie is als volgt te gebruiken:
+	
+\begin{enumerate}
+	\item Doe de batterijen in de batterijhouder.
+	\item Zet de Wheelie rechtop (verticaal) op de grond. 
+	Na een paar seconden kun je Wheelie loslaten. Hierna zal de robot zichzelf balanceren door voor en achteruit te rijden. 
+	\item Blijf in de buurt om Wheelie op te vangen.
+	De huidige code werkt nog niet perfect. Daardoor is het nodig om naast Wheelie te blijven staan om hem op te vangen als hij valt. Aan beide kanten van de robot zitten uitsteeksels waardoor de hardware niet snel zal beschadigen bij een val, maar voorkoming is altijd beter. 
+	\item Verbind Wheelie met de android app. 
+	Dit doe je door de instructies onder "android app" te volgen.
+	\item Bestuur Wheelie met je mobiel.
+	Het idee achter de besturing is dat Wheelie de positie van je mobiel nadoet. Zolang je je mobiel verticaal houdt, zal Wheelie stil blijven staan. Als je je mobieltje naar voren kantelt, gaat Wheelie naar voren. Kantel je je mobiel naar achter, zal Wheelie ook naar achter gaan. De richting waar je mobiel kijkt is ook de richting waar Wheelie naar kijkt. Dus als jij een kwartslag draait zal Wheelie hetzelfde doen et cetera.
+	
+\end{enumerate}
+
+	Als Wheelie een hoek van meer dan 45 graden maakt ten opzichte van rechtop staan, zullen de motoren uitgaan. Hierdoor zal hij niet doorrijden als hij al gevallen is. Dit zorgt er ook voor dat je hem verticaal op tafel kunt leggen zonder dat hij gaat rijden. 
+	
+Momenteel is de enige manier om Wheelie uit te zetten de batterijen te verwijderen. Dit kan aangepast worden door een schakelaar aan de batterijhouder te solderen.
+
+Wheelie is ook te besturen met de bijgeleverde app. Hiervoor is het nodig om de bluetooth module te monteren. De Ai-ball kan ook toegevoegd worden voor beeld, maar dit is niet verplicht. Volg de instructies onder het kopje "android app" om Wheelie met de app te verbinden. Hierna kun je Wheelie met je telefoon besturen. 
+
+\subsection{Auto}
+Auto is als volgt te gebruiken:
+
+\begin{enumerate}
+	\item Doe de batterijen in de batterijhouder.
+	\item Verbind Auto met de android app. 
+	Dit doe via de instructies onder "android app".  
+	\item Bestuur Auto met je mobiel. 
+	De besturing van Auto werkt haast gelijk aan die van Wheelie. Door je mobiel verder naar voren te kantelen ga je vooruit, door hem naar achter te kantelen ga je achteruit. Voor deze versie van de app hebben we 45 graden als neutrale positie gekozen. Dit hebben we gedaan zodat je ook als je achteruit rijdt, nog op het scherm kunt kijken en dus door middel van de videoverbinding kunt bepalen waar je rijdt. Auto heeft geen positie sensor. Daarom kan hij niet de positie van je mobiel volgen, zoals Wheelie dat wel kan. In plaats daarvan draai je door het scherm linksom te kantelen (keer naar links) of rechtsom te kantelen (keer naar rechts).
+\end{enumerate}
+
+Evenals bij Wheelie zit er geen aan en uitknop op de robot. Om hem uit te zetten, zul je de batterijen eruit moeten halen.
+
+\subsection{Ai ball}
+Om het beeld van de robot te kunnen zien is de Ai Ball nodig. De setup van Ai ball gaat als volgt: 
+
+\begin{enumerate}
+	\item Zet de Ai ball aan.
+	\item Maak verbinding met de Ai ball. 
+	Binnen een minuut na het aanzetten van de Ai ball zal een nieuw wifinetwerk beschikbaar zijn genaamd "Trek Ai-Ball".  Maak hier verbinding mee met je favoriete Apparat. Het kan zijn dat je de waarschuwing krijgt dat de verbinding limited is. Dit kun je negeren. Dit zegt alleen dat je via de Ai ball niet het internet op kan. 
+	\item Pas de instellingen van de Ai ball naar wensen aan. 
+	Dit kan via \url{http://192.168.2.1}. Je kunt hiervoor iedere browser gebruiken die html5 ondersteund. Hier kun je bijvoorbeeld de resolutie en de mate van compressie aanpassen.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.7\linewidth]{trek_settings}
+		\label{fig:trek_settings}
+	\end{figure}
+\end{enumerate}
+
+\subsection{android app}
+De app is zowel met als zonder Ai-ball te gebruiken. Met onderstaande methode kun je zowel met Wheelie als met Auto verbinden. Om de app te kunnen gebruiken is het nodig de bluetooth module op de robot te monteren. Om te kunnen zien waar de robot rijd, is het ook nodig de Ai-ball te monteren. Maar ook zonder Ai-ball is de app te gebruiken. In dat geval kun je stap 1 overslaan.
+
+\begin{enumerate}
+	\item Verbind je mobiel met de Ai ball. Dit doe je door de eerste 2 stappen onder het kopje "Ai ball" uit te voeren.
+	\item Open de app.
+	\item Zorg dat bluetooth aanstaat. Indien dit nog niet zo is als je de app opent, zal deze een pop-up geven met de vraag dit alsnog voor je te doen. 
+	\item Zorg dat de robot aanstaat. 
+	\item Zorg dat je je mobiel in de neutrale positie staat. Dit is de positie waarbij de robot stil staat. Dit doe je om te voorkomen dat als je de robot verbindt met de app, dat dan de robot er opeens vandoor gaat. De neutrale positie van Wheelie en Auto verscheelt wel. 
+	\begin{enumerate}
+		\item De neutrale positie van Wheelie is: scherm in landscape mode, de telefoon verticaal omhoog en het scherm naar je toe gekeerd.
+		\item De neutrale positie van Auto is: scherm in landscape mode, het scherm naar je toe gekeerd en de telefoon in een hoek van 45 graden van je af gedraaid. 
+	\end{enumerate} 
+	\item Verbind de app met de robot. Druk op de "Connect" knop bovenin de app. Hierna krijg je alle beschikbare bluetooth apparaten te zien. Selecteer het gewenste apparaat om ermee te verbinden.
+	\begin{enumerate}
+		\item De devicename van Wheelie is "WHEELIE".
+		\item De devicename van Auto is "AUTO".
+	\end{enumerate}
+\end{enumerate}
 
 \newpage
 \begin{thebibliography}{9}

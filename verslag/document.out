@@ -1,7 +1,18 @@
 \BOOKMARK [1][-]{section.1}{Introductie}{}% 1
 \BOOKMARK [1][-]{section.2}{Hardware}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{Wheelie}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Auto}{section.2}% 4
-\BOOKMARK [1][-]{section.3}{Software}{}% 5
-\BOOKMARK [2][-]{subsection.3.1}{Arduino}{section.3}% 6
-\BOOKMARK [2][-]{subsection.3.2}{Android}{section.3}% 7
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Onderdelen}{subsection.2.1}% 4
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Montage}{subsection.2.1}% 5
+\BOOKMARK [3][-]{subsubsection.2.1.3}{Aansluitingen}{subsection.2.1}% 6
+\BOOKMARK [2][-]{subsection.2.2}{Auto}{section.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Onderdelen}{subsection.2.2}% 8
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Montage}{subsection.2.2}% 9
+\BOOKMARK [3][-]{subsubsection.2.2.3}{Aansluitingen}{subsection.2.2}% 10
+\BOOKMARK [1][-]{section.3}{Software}{}% 11
+\BOOKMARK [2][-]{subsection.3.1}{Arduino}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.2}{Android}{section.3}% 13
+\BOOKMARK [1][-]{section.4}{Gebruik}{}% 14
+\BOOKMARK [2][-]{subsection.4.1}{Wheelie}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.2}{Auto}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.3}{Ai ball}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.4}{android app}{section.4}% 18
