@@ -1,5 +1,6 @@
 \select@language {dutch}
 \contentsline {section}{\numberline {1}Introductie}{3}{section.1}
-\contentsline {section}{\numberline {2}Hardware}{3}{section.2}
-\contentsline {section}{\numberline {3}Software}{3}{section.3}
-\contentsline {subsection}{\numberline {3.1}Arduino}{3}{subsection.3.1}
+\contentsline {section}{\numberline {2}Hardware Wheelie}{3}{section.2}
+\contentsline {section}{\numberline {3}Hardware Auto}{7}{section.3}
+\contentsline {section}{\numberline {4}Software}{11}{section.4}
+\contentsline {subsection}{\numberline {4.1}Arduino}{11}{subsection.4.1}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.5)  5 APR 2016 10:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.5)  6 APR 2016 13:40
 entering extended mode
 **./document.tex
 (document.tex
@@ -329,41 +329,48 @@ Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
 ("C:\Users\Nikki\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ltxmisc\parskip.st
 y"
 Package: parskip 2001/04/09 non-zero parskip adjustments
+) ("C:\Users\Nikki\AppData\Local\Programs\MiKTeX 2.9\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count115
+\float@exts=\toks25
+\float@box=\box28
+\@float@everytoks=\toks26
+\@floatcapt=\box29
 ) (document.aux)
 \openout1 = `document.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
 
 ("C:\Users\Nikki\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf.mk
 ii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count115
+\scratchcounter=\count116
 \scratchdimen=\dimen134
-\scratchbox=\box28
-\nofMPsegments=\count116
-\nofMParguments=\count117
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count118
+\scratchbox=\box30
+\nofMPsegments=\count117
+\nofMParguments=\count118
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count119
 \MPscratchDim=\dimen135
-\MPnumerator=\count119
-\makeMPintoPDFobject=\count120
-\everyMPtoPDFconversion=\toks26
+\MPnumerator=\count120
+\makeMPintoPDFobject=\count121
+\everyMPtoPDFconversion=\toks28
 )
-\AtBeginShipoutBox=\box29
-Package hyperref Info: Link coloring OFF on input line 17.
+\AtBeginShipoutBox=\box31
+Package hyperref Info: Link coloring OFF on input line 18.
 
 ("C:\Users\Nikki\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\nameref.s
 ty"
@@ -373,11 +380,11 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 estring.sty"
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count121
+\c@section@level=\count122
 )
-LaTeX Info: Redefining \ref on input line 17.
-LaTeX Info: Redefining \pageref on input line 17.
-LaTeX Info: Redefining \nameref on input line 17.
+LaTeX Info: Redefining \ref on input line 18.
+LaTeX Info: Redefining \pageref on input line 18.
+LaTeX Info: Redefining \nameref on input line 18.
  (document.out) (document.out)
 \@outlinefile=\write3
 \openout3 = `document.out'.
@@ -417,22 +424,22 @@ LaTeX Info: Redefining \nameref on input line 17.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 19.
+LaTeX Font Info:    Try loading font information for U+msa on input line 20.
 ("C:\Users\Nikki\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 19.
+LaTeX Font Info:    Try loading font information for U+msb on input line 20.
 ("C:\Users\Nikki\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 19.
+(babel)             in language  on input line 20.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 19.
+(babel)             in language  on input line 20.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 19.
+(babel)             in language  on input line 20.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 19.
+(babel)             in language  on input line 20.
 [1
 
 {C:/Users/Nikki/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
@@ -441,150 +448,313 @@ Package babel Info: Redefining dutch shorthand "~
 \openout4 = `document.toc'.
 
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 21.
+(babel)             in language  on input line 22.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 21.
+(babel)             in language  on input line 22.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 21.
+(babel)             in language  on input line 22.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 21.
+(babel)             in language  on input line 22.
  [2]
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 23.
+(babel)             in language  on input line 24.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 23.
+(babel)             in language  on input line 24.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 26.
+(babel)             in language  on input line 27.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 26.
+(babel)             in language  on input line 27.
+ <vastzetten_motor.jpg, id=41, 4111.36pt x 2312.64pt>
+File: vastzetten_motor.jpg Graphic file (type jpg)
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
+<use vastzetten_motor.jpg>
+Package pdftex.def Info: vastzetten_motor.jpg used on input line 61.
+(pdftex.def)             Requested size: 317.07614pt x 178.34555pt.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 84.
+(babel)             in language  on input line 64.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 84.
+(babel)             in language  on input line 64.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 85.
+(babel)             in language  on input line 64.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 85.
+(babel)             in language  on input line 64.
+ [3pdfTeX warning (ext4): destination with the same identifier (name{table.1}) 
+has been already used, duplicate ignored
 
-Underfull \hbox (badness 10000) in paragraph at lines 101--101
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.64 	\item M
+             onteer de plank in de lengte aan het autochasis.]
+File: vastzetten_motor.jpg Graphic file (type jpg)
+
+<use vastzetten_motor.jpg>
+Package pdftex.def Info: vastzetten_motor.jpg used on input line 67.
+(pdftex.def)             Requested size: 317.07614pt x 178.34555pt.
+
+<vastzetten_motorcontroller.jpg, id=48, 4111.36pt x 2312.64pt>
+File: vastzetten_motorcontroller.jpg Graphic file (type jpg)
+
+<use vastzetten_motorcontroller.jpg>
+Package pdftex.def Info: vastzetten_motorcontroller.jpg used on input line 73.
+(pdftex.def)             Requested size: 317.07614pt x 178.34555pt.
+
+<vastzetten_onderdelen.jpg, id=49, 4111.36pt x 2312.64pt>
+File: vastzetten_onderdelen.jpg Graphic file (type jpg)
+
+<use vastzetten_onderdelen.jpg>
+Package pdftex.def Info: vastzetten_onderdelen.jpg used on input line 79.
+(pdftex.def)             Requested size: 317.07614pt x 178.34555pt.
+
+<vastzetten_zijkant.jpg, id=50, 4111.36pt x 2312.64pt>
+File: vastzetten_zijkant.jpg Graphic file (type jpg)
+
+<use vastzetten_zijkant.jpg>
+Package pdftex.def Info: vastzetten_zijkant.jpg used on input line 84.
+(pdftex.def)             Requested size: 317.07614pt x 178.34555pt.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 86.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 86.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 86.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 86.
+ [4 <./vastzetten_motor.jpg> <./vastzetten_motorcontroller.jpg>]
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 125.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 125.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 125.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 125.
+ [5 <./vastzetten_onderdelen.jpg> <./vastzetten_zijkant.jpg>]
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 126.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 126.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 126.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 126.
+
+[6pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.126 \newpage
+              ]
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 127.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 127.
+ <vastzetten_auto.jpg, id=70, 2312.64pt x 4111.36pt>
+File: vastzetten_auto.jpg Graphic file (type jpg)
+
+<use vastzetten_auto.jpg>
+Package pdftex.def Info: vastzetten_auto.jpg used on input line 161.
+(pdftex.def)             Requested size: 317.07614pt x 563.66698pt.
+ <zijkant.jpg, id=71, 4111.36pt x 2312.64pt>
+File: zijkant.jpg Graphic file (type jpg)
+
+<use zijkant.jpg>
+Package pdftex.def Info: zijkant.jpg used on input line 166.
+(pdftex.def)             Requested size: 317.07614pt x 178.34555pt.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 168.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 168.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 168.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 168.
+ [7pdfTeX warning (ext4): destination with the same identifier (name{table.2}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.168 		\end{figure}
+                    ]
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 169.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 169.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 169.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 169.
+ [8 <./vastzetten_auto.jpg>]
+<ai_ball.jpg, id=86, 4111.36pt x 2312.64pt>
+File: ai_ball.jpg Graphic file (type jpg)
+ <use ai_ball.jpg>
+Package pdftex.def Info: ai_ball.jpg used on input line 172.
+(pdftex.def)             Requested size: 317.07614pt x 178.34555pt.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 177.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 177.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 177.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 177.
+ [9 <./zijkant.jpg> <./ai_ball.jpg>]
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 224.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 224.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 225.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 225.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 227.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 227.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 227.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 227.
+ [10pdfTeX warning (ext4): destination with the same identifier (name{table.3})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.227 
+      ]
+Underfull \hbox (badness 10000) in paragraph at lines 241--241
 []|[]$\OT1/cmtt/m/n/12 https : / / github . com / adafruit / Adafruit _$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 101--101
+Underfull \hbox (badness 10000) in paragraph at lines 241--241
 []|[]$\OT1/cmtt/m/n/12 https : / / github . com / adafruit / Adafruit _$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 101--101
+Underfull \hbox (badness 10000) in paragraph at lines 241--241
 []|[]$\OT1/cmtt/m/n/12 https : / / github . com / adafruit / Adafruit _$
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<Add_ZIP.jpg, id=48, 1028.34187pt x 548.0475pt>
+<Add_ZIP.jpg, id=109, 1028.34187pt x 548.0475pt>
 File: Add_ZIP.jpg Graphic file (type jpg)
  <use Add_ZIP.jpg>
-Package pdftex.def Info: Add_ZIP.jpg used on input line 109.
+Package pdftex.def Info: Add_ZIP.jpg used on input line 249.
 (pdftex.def)             Requested size: 317.07614pt x 168.98145pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 118.
+(babel)             in language  on input line 258.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 118.
+(babel)             in language  on input line 258.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 118.
+(babel)             in language  on input line 258.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 118.
-[3]
-Underfull \hbox (badness 4846) in paragraph at lines 121--123
+(babel)             in language  on input line 258.
+[11pdfTeX warning (ext4): destination with the same identifier (name{table.4}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.258 \newpage
+              ]
+Underfull \hbox (badness 4846) in paragraph at lines 261--263
 []\OT1/cmr/m/n/12 Townsend, K. (2015, 04 mei). Get-ting Star-ted with the nRF80
 01 Blu-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 121--123
+Underfull \hbox (badness 10000) in paragraph at lines 261--263
 \OT1/cmr/m/n/12 e-fruit LE Break-out. Ge-raad-pleegd van []$\OT1/cmtt/m/n/12 ht
 tps : / / learn . adafruit . com /$
  []
 
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 127.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 127.
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 127.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 127.
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 141--143
+
+Underfull \hbox (badness 10000) in paragraph at lines 281--283
 []\OT1/cmr/m/n/12 DX. (z.j). DIY In-tel-li-gent Tor-toise Smart Wheel Ro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--143
+Underfull \hbox (badness 10000) in paragraph at lines 281--283
 \OT1/cmr/m/n/12 bot Module-Black. Ge-raad-pleegd van []$\OT1/cmtt/m/n/12 http :
  / / www . dx . com / p /$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--143
+Underfull \hbox (badness 10000) in paragraph at lines 281--283
 $\OT1/cmtt/m/n/12 diy-[]intelligent-[]tortoise-[]smart-[]wheel-[]robot-[]module
 -[]173668 ? tc = EUR &$
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 285--287
+[]\OT1/cmr/m/n/12 DX. (z.j). Blue-tooth Con-trol-led Ro-bot Car Kits
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 285--287
+\OT1/cmr/m/n/12 for Ar-duino. Ge-raad-pleegd van []$\OT1/cmtt/m/n/12 http : / /
+ www . dx . com / p /$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 285--287
+$\OT1/cmtt/m/n/12 arduino-[]compatible-[]bluetooth-[]controlled-[]robot-[]car-[
+]kits-[]146418 #$
+ []
+
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 152.
+(babel)             in language  on input line 299.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 152.
+(babel)             in language  on input line 299.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 152.
+(babel)             in language  on input line 299.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 152.
-[5 <./Add_ZIP.jpg>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 160.
+(babel)             in language  on input line 299.
+[12pdfTeX warning (ext4): destination with the same identifier (name{figure.2})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.299 
+       <./Add_ZIP.jpg>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 308.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 160.
+(babel)             in language  on input line 308.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 160.
+(babel)             in language  on input line 308.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 160.
+(babel)             in language  on input line 308.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 160.
- [6]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 160.
+(babel)             in language  on input line 308.
+ [13]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 308.
  (document.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 160.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 160.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 308.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 308.
 Package rerunfilecheck Info: File `document.out' has not changed.
-(rerunfilecheck)             Checksum: 032922B84EFD166D0FD3C7C33CD9C851;192.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 160.
+(rerunfilecheck)             Checksum: C0353AB8189B837AED730A632F2B9AD3;249.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 308.
  ) 
 Here is how much of TeX's memory you used:
- 6863 strings out of 493634
- 99415 string characters out of 3135240
- 208735 words of memory out of 3000000
- 10142 multiletter control sequences out of 15000+200000
+ 6991 strings out of 493634
+ 101510 string characters out of 3135240
+ 210547 words of memory out of 3000000
+ 10239 multiletter control sequences out of 15000+200000
  12572 words of font info for 49 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 29i,10n,32p,524b,437s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,10n,32p,595b,443s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Nikki/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmbx12.pfb><C:/Users/Nikki/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
 blic/amsfonts/cm/cmr12.pfb><C:/Users/Nikki/AppData/Local/Programs/MiKTeX 2.9/fo
 nts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/Nikki/AppData/Local/Programs/M
 iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Nikki/AppData/Loc
 al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on document.pdf (6 pages, 197973 bytes).
+Output written on document.pdf (13 pages, 24914406 bytes).
 PDF statistics:
- 131 PDF objects out of 1000 (max. 8388607)
- 27 named destinations out of 1000 (max. 500000)
- 38 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 199 PDF objects out of 1000 (max. 8388607)
+ 47 named destinations out of 1000 (max. 500000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 
