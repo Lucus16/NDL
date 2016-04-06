@@ -9,6 +9,7 @@
 \usepackage{geometry}
 \usepackage{tabularx}
 \usepackage{parskip}
+\usepackage{float}
 
 
 \geometry{margin=1in}
@@ -21,28 +22,80 @@
 \newpage
 
 \section{Introductie}
-In deze handleiding vind je alles wat nodig is om ook zelf de zelfbalancerende robot "Wheelie" te kunnen maken. De handleiding is in 3 onderdelen te verdelen: de montage van de robot, het installeren van de software en het gebruik van Wheelie. 
+In deze handleiding vind je alles wat nodig is om ook zelf het project "Wheelie" te kunnen uitvoeren. Wheelie bestaat uit twee robots. De eerste is de zelfbalancerende robot Wheelie en de tweede is de auto Auto. Auto wordt gebruikt om de besturing via je telefoon en de camera te testen. De handleiding is in 3 onderdelen te verdelen: de montage van de robot, het installeren van de software en het gebruik van Wheelie. Het tweede voertuig dat we gemaakt hebben, is een auto, genaamd Auto. Deze hebben we gebruikt om de besturing en de camera mee te testen. 
 
-\section{Hardware}
-Voor dit project is gebruik gemaakt van de volgende onderdelen:
-\begin{table}[!h]
+\section{Hardware Wheelie}
+Wheelie bestaat uit de volgende onderdelen:
+
+\begin{table}[!h]	
+	\begin{tabular}{|l|c|}
+		\hline \multicolumn{2}{|c|}{\textbf{Wheelie}}	\\	
+		\hline \textbf{Onderdelen} & \textbf{Aantal} \\ 
+		\hline Arduino UNO & 1 \\ 
+		\hline adafruit BNO055 (Absolute Orienation Sensor) & 1 \\ 
+		\hline  nRF8001 (Bluetooth LE) & 1  \\ 
+		\hline L298N (Dual H-bridge Motor Controller) & 1 \\
+		\hline  batterijhouder & 1  \\ 
+		\hline 3400 mAh 3.6V batterij & 2 \\ 
+		\hline  geared motor & 2 \\
+		\hline  wiel	 & 2 \\
+		\hline 	mdfplaat 601x100x60 mm (lxbxh) & 1 \\
+		\hline  motor fixing & 2 \\
+		\hline  autochasis & 1 \\
+		\hline	koper pilaar 3x40 mm (dxl) & 1 \\
+		\hline 	koper pilaar 3x20 mm (dxl) & 1 \\
+		\hline 	schroeven 3x20 mm (dxl) & - \\
+		\hline 	schroeven 3x12 mm (dxl) & - \\
+		\hline  moeren M3 & - \\
+		\hline	
+	\end{tabular} 
+\caption{Onderdelen Wheelie}
+\label{tbl:Onderdelen_wheelie}
+\end{table}
+
+De montage van Wheelie is redelijk voor de hand liggend. De onderdelen kunnen op elke gewenste plek op de plank geplaatst worden door zelf schroefgaten te boren. De bluetooth module zit momenteel op de Auto gemonteerd. Maar deze kan op pricies dezelfde wijze op Wheelie gezet worden. 
+\begin{enumerate}
+	\item Monteer de motoren aan het autochasis. Hiervoor zitten al gaten in het chasis.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{vastzetten_motor}
+		\label{fig:vastzetten_motor}
+	\end{figure}
+	\item Monteer de plank in de lengte aan het autochasis.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{vastzetten_motor}
+		\label{fig:vastzetten_plank}
+	\end{figure}
+	\item Monteer de motor controller op de plank. 
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{vastzetten_motorcontroller}
+			\label{fig:vastzetten_mc}
+		\end{figure}
+	\item Monteer de Arduino, batterijhouder en de absolute orientation sensor.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{vastzetten_onderdelen}
+		\label{fig:vastzetten_onderdelen}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{vastzetten_zijkant}
+		\label{fig:vastzetten_zijkant}
+	\end{figure}	
+\end{enumerate}
+
+De onderdelen moeten als volgt aangesloten worden:
+\begin{figure} [H]
 	\begin{tabularx}{\textwidth}{|X|X|}	
+		\hline \multicolumn{2}{|c|}{\textbf{Wheelie}}	\\	
 		\hline \multicolumn{2}{|c|}{\textbf{adafruit BNO055 (Absolute Orienation Sensor)}}	\\	
 		\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op Arduino} \\ 
 		\hline VIN & 3.5V \\ 
 		\hline GND & GND\\ 
 		\hline SCL & A5 \\  
 		\hline SDA & A4 \\
-		\hline \multicolumn{2}{|c|}{\textbf{nRF8001 (Bluetooth LE)}}	\\	 
-		\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op Arduino} \\
-		\hline VIN & 5v \\
-		\hline GND & GND \\
-		\hline SCK & 13 \\
-		\hline MISO & 12 \\
-		\hline MOSI & 11 \\
-		\hline REQ & 10 \\
-		\hline RST & 9 \\
-		\hline RDY & 2 \\
 		\hline \multicolumn{2}{|c|}{\textbf{L298N (Dual H-bridge Motor Controller)}}	\\	 
 		\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op Arduino} \\
 		\hline GND & GND \\
@@ -66,20 +119,107 @@ Voor dit project is gebruik gemaakt van de volgende onderdelen:
 		\hline rode draad & 12V \\		
 		\hline		
 	\end{tabularx} 
-	\caption{Arduino aansluitingen}
-	\label{tbl:Aansluitingen}
-\end{table}
+	\caption{Aansluitingen Wheelie}
+	\label{tbl:Aansluitingen_Wheelie}
+\end{figure}
 
-\begin{tabular}{|c|c|}
-	\hline Onderdelen & Aantal \\ 
-	\hline Arduino UNO & 1 \\ 
-	\hline  &  \\ 
-	\hline  &  \\ 
-	\hline  &  \\ 
-	\hline 
-\end{tabular} 
-
-Aansluitingen
+\newpage
+\section{Hardware Auto}
+Auto is gebaseerd op de Bluetooth Controlled Robot Car Kits for Arduino \cite{DIY_auto}. Voor Auto zijn de volgende onderdelen nodig. 
+\begin{table}[!h]	
+	\begin{tabular}{|l|c|}
+		\hline \multicolumn{2}{|c|}{\textbf{Auto}}	\\	
+		\hline \textbf{Onderdelen} & \textbf{Aantal} \\ 
+		\hline Arduino LEONARDO & 1 \\ 
+		\hline  nRF8001 (Bluetooth LE) & 1  \\ 
+		\hline	L298 (Dual H-bridge Motor Controller) & 1 \\
+		\hline Ai-Ball & 1 \\
+		\hline  CR2 batterij & 1 \\
+		\hline  batterijhouder & 1  \\ 
+		\hline 3400 mAh 3.6V batterij & 2 \\ 
+		\hline  geared motor & 4 \\
+		\hline  wiel	 & 4 \\
+		\hline 	100 x 213 x 5mm acrylic glass plate (bxlxh) & 2 \\
+		\hline  motor fixing & 4 \\
+		\hline	koper pilaar 6 mm (l) & 6 \\
+		\hline 	koper pilaar 1 mm (l) & 2 \\
+		\hline 	schroeven 3x20 mm (dxl) & - \\
+		\hline	schroeven 3x12 mm (dxl) & - \\
+		\hline  moeren M3 & - \\	
+		\hline
+		\end{tabular} 
+		\caption{Onderdelen Auto}
+		\label{tbl:Onderdelen_auto}
+	\end{table}
+	
+	Voor de montage van Auto kun je voor het grootste gedeelte gelijk aan die van de robot-car. 
+	\begin{enumerate}
+		\item Monteer alle onderdelen hierboven \ref{tbl:Onderdelen_auto} zoals in de handleiding is aangegeven \cite{DIY_auto_hl}. 
+		\item Monteer de nRF8001 (Bluetooth LE).
+		\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{vastzetten_auto}
+		\label{fig:vastzetten_auto}
+		\end{figure}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{zijkant}
+			\label{fig:vastzetten_zijkant_auto}
+		\end{figure}
+		\item Monteer de Ai ball.
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{ai_ball}
+			\label{fig:vastzetten_aiball}
+		\end{figure}	
+	\end{enumerate}
+	
+\newpage
+	De onderdelen worden als volgt aangesloten.			
+	\begin{table}[H]
+		\begin{tabularx}{\textwidth}{|X|X|}	
+			\hline \multicolumn{2}{|c|}{\textbf{nRF8001 (Bluetooth LE)}}	\\	 
+			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op Arduino} \\
+			\hline VIN & 5v \\
+			\hline GND & GND \\
+			\hline SCK &  ICSP 3 (ICSP links-midden)\\
+			\hline MISO & ICSP 1 (ICSP links-boven)\\
+			\hline MOSI & ICSP 4 (ICSP rechts-midden)\\
+			\hline REQ & 10 \\
+			\hline RST & 9 \\
+			\hline RDY & 2 \\
+			\hline \multicolumn{2}{|c|}{\textbf{L298 (Dual H-bridge Motor Controller)}}	\\	 
+			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op Arduino} \\
+			\hline GND & GND \\
+			\hline ENA & 5  \\
+			\hline ENB & 6 \\
+			\hline IN1 & 3 \\
+			\hline IN2 & 4 \\
+			\hline IN3 & 7 \\
+			\hline IN4 & 8 \\
+			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor LV} \\
+			\hline OUT1 & rode draad \\
+			\hline OUT2 & zwarte draad \\
+			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor LA} \\
+			\hline OUT1 & rode draad \\
+			\hline OUT2 & zwarte draad \\
+			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor RV} \\
+			\hline OUT3 & zwarte draad \\
+			\hline OUT4 & rode draad \\
+			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor RA} \\
+			\hline OUT3 & zwarte draad \\
+			\hline OUT4 & rode draad \\
+			\hline \multicolumn{2}{|c|}{\textbf{Batterijhouder}}\\	 
+			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op Arduino} \\
+			\hline grote ronde stekker & DC input \\
+			\hline \textbf{Aansluiting op onderdeel} & \textbf{Aansluiting op motor controller} \\
+			\hline zwarte draad & GND \\
+			\hline rode draad & 12V \\		
+			\hline		
+		\end{tabularx} 
+		\caption{Aansluitingen Auto}
+		\label{tbl:Aansluitingen_auto}
+	\end{table}
 
 \section{Software}
 \subsection{Arduino}
@@ -88,7 +228,7 @@ Voor dit project is gebruik gemaakt van de Arduino IDE ARDUINO (ARDUINO 1.6.7). 
 Hieronder vind je een tabel met alle gebruikte libraries voor dit project.
 Eerst komen alle libraries die gebruikt zijn in de code voor de arduino.
 
-\begin{table}[h]
+\begin{table}[H]
 	\begin{tabularx}{\textwidth}{|l|l|X|}
 	\hline \textbf{Bibliotheek} & \textbf{Versie} & \textbf{Download link}  \\ 
 	\hline Wire & 1.0 & - \\ 
@@ -140,6 +280,14 @@ SparkFun. (z.j). SparkFun Triple Axis Accelerometer Breakout - ADXL345. Geraadpl
 \bibitem{DIY_specs}
 DX. (z.j). DIY Intelligent Tortoise Smart Wheel Robot Module-Black. Geraadpleegd van 
 \url{http://www.dx.com/p/diy-intelligent-tortoise-smart-wheel-robot-module-173668?tc=EUR&gclid=CI7qtbm5p78CFa_KtAodTSgAVA#.VvvjLeKLTIW}
+
+\bibitem{DIY_auto}
+DX. (z.j). Bluetooth Controlled Robot Car Kits for Arduino. Geraadpleegd van
+\url{http://www.dx.com/p/arduino-compatible-bluetooth-controlled-robot-car-kits-146418#.VwTq0PmLTIV}
+
+\bibitem{DIY_auto_hl}
+Anonymous. (z.j). Arduino Bluetooth utility vehicle manual. Geraadpleegd van
+\url{http://m5.img.dxcdn.com/CDDriver/CD/sku.146418.docx}
 
 \bibitem{camera_specs}
 AI-Ball. (z.j). What is an AI-ball? Geraadpleegd van
